@@ -1,0 +1,4375 @@
+///**************************************************************************///
+///*****************************   NATURALES   ******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+// 1) PROGRAMA QUE MUESTRA LOS PRIMEROS N NÚMEROS NATURALES //
+void Mostrar( byte n ) {
+  if ( n == 0 ) {
+  }
+  else {
+    Mostrar( n - 1 );
+    ShowMessage( n );
+  }
+}
+//------------------------------------------------------------------------------
+// 2) PROGRAMA QUE MUESTRA LOS PRIMEROS N NÚMEROS NATURALES INVERTIDOS //
+void Mostrar1( byte n ) {
+  if ( n == 0 ) {
+  }
+  else {
+    ShowMessage( n );
+    Mostrar1( n - 1 );
+  }
+}
+//------------------------------------------------------------------------------
+// 3) PROGRAMA QUE MUESTRA LOS PRIMEROS N NÚMEROS PARES //
+void MostrarPares( byte n ) {
+  if ( n == 0 ) {
+  }
+  else {
+    MostrarPares( n - 1 );
+    ShowMessage( n * 2 - 2 );
+  }
+}
+//------------------------------------------------------------------------------
+// 4) PROGRAMA QUE ELIMINA LOS DÍGITOS PARES DE UN NÚMERO //
+void EliminarPares( Cardinal &n ) {
+  if ( n < 10 ) {
+    if ( n % 2 == 0 )
+      n = 0;
+  }
+  else {
+    byte d;
+    d = n % 10;
+    n = n / 10;
+    EliminarPares( n );
+    if ( d % 2 == 1 )
+      n = n * 10 + d;
+  }
+}
+//------------------------------------------------------------------------------
+// 5) PROGRAMA QUE MUESTRA LA SUMA DE LOS DÍGITOS PARES DE UN NÚMERO //
+byte SumaDigitosPares( Cardinal x ) {
+  byte sum;
+  if ( x < 10 ) {
+    if ( x % 2 == 0 )
+      sum = x;
+    else
+      sum = 0;
+  }
+  else {
+    sum = SumaDigitosPares( x / 10 );
+    if ( ( ( x % 10 ) % 2 ) == 0 )
+      sum = sum + ( x % 10 );
+  }
+  return ( sum );
+}
+//------------------------------------------------------------------------------
+// 6) PROGRAMA QUE MUESTRA LA CANTIDAD DE DÍGITOS PARES DE UN NÚMERO //
+byte CantidadPar( Cardinal x ) {
+  byte c;
+  if ( x < 10 ) {
+    if ( x % 2 == 0 )
+      c = 1;
+    else
+      c = 0;
+  }
+  else {
+    c = CantidadPar( x / 10 );
+    if ( x % 2 == 0 )
+      c++;
+  }
+  return ( c );
+}
+//------------------------------------------------------------------------------
+// 7) PROGRAMA QUE MUESTRA LOS PRIMEROS N NÚMEROS IMPARES //
+void MostrarImpares( byte n ) {
+  if ( n == 0 ) {
+  }
+  else {
+    MostrarImpares( n - 1 );
+    ShowMessage( n * 2 - 1 );
+  }
+}
+//------------------------------------------------------------------------------
+// 8) PROGRAMA QUE ELIMINA LOS DÍGITOS IMPARES DE UN NÚMERO //
+void elimImpares( Cardinal &n ) {
+  if ( n < 10 ) {
+    if ( n % 2 == 1 )
+      n = 0;
+  }
+  else {
+    byte d;
+    d = n % 10;
+    n = n / 10;
+    elimImpares( n );
+    if ( ( d % 2 ) == 0 )
+      n = n * 10 + d;
+  }
+}
+//------------------------------------------------------------------------------
+// 9) PROGRAMA QUE MUESTRA LA SUMA DE LOS DÍGITOS IMPARES DE UN NÚMERO //
+/*byte SumaDigitosImpares( Cardinal x ) {
+  byte sum;
+  if ( x < 10 ) {
+    if ( x % 2 == 1 )
+      sum = x;
+    else
+      sum = 0;
+  }
+  else {
+    sum = SumaDigitosImpares( x / 10 );
+    if ( ( ( x % 10 ) % 2 ) == 1 )
+      sum = sum + ( x % 10 );
+  }
+  return ( sum );
+}*/
+//------------------------------------------------------------------------------
+// 10) PROGRAMA QUE MUESTRA LA CANTIDAD DE DÍGITOS IMPARES DE UN NÚMERO //
+/*byte CantidadImpar( Cardinal x ) {
+  byte c;
+  if ( x < 10 ) {
+    if ( x % 2 == 1 )
+      c = 1;
+    else
+      c = 0;
+  }
+  else {
+    c = CantidadImpar( x / 10 );
+    if ( x % 2 == 1 )
+      c++;
+  }
+  return ( c );
+}*/
+//------------------------------------------------------------------------------
+// 11) PROGRAMA QUE MUESTRA LA SUMA DE LOS DÍGITOS DE UN NÚMERO //
+byte SumaDigitos( Cardinal n ) {
+  byte s;
+  if ( n < 10 ) {
+    s = n;
+  }
+  else {
+    s = SumaDigitos( n / 10 );
+    s = s + n % 10;
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 12) PROGRAMA QUE SEPARA LOS DÍGITOS PARES E IMPARES DE UN NÚMERO //
+void Sep_Imp_Par( Cardinal &par, Cardinal &imp, Cardinal n ) {
+  if ( n < 10 ) {
+    if ( ( n % 2 ) == 0 ) {
+      par = n;
+      imp = 0;
+    }
+    else {
+      imp = n;
+      par = 0;
+    }
+     }
+  else {
+    byte d = ( n % 10 );
+    Sep_Imp_Par( par, imp, n / 10 );
+    if ( ( d % 2 ) == 0 )
+      par = ( par * 10 ) + d;
+    else
+      imp = ( imp * 10 ) + d;
+  }
+}
+//------------------------------------------------------------------------------
+// 13) PROGRAMA QUE SEPARA DÍGITOS PARES E IMPARES DE DOS NÚMEROS //
+void SepararNro( int &x, int &y ) {
+  int a, b;
+  a = 0;
+  b = 0;
+  Sep_Imp_Par( x, a, b );
+  Sep_Imp_Par( y, a, b );
+  x = a;
+  y = b;
+}
+//------------------------------------------------------------------------------
+// 14) PROGRAMA QUE ORDENA LOS ELEMENTOS DE UN NÚMERO POR EL MÉTODO DE BURBUJA //
+void Burbuja( Cardinal &x );
+void OrdenarX( Cardinal &x ) {
+  if ( x >= 10 ) {
+    Burbuja( x );
+    byte d;
+    d = x % 10;
+    x = x / 10;
+    OrdenarX( x );
+    x = x * 10 + d;
+  }
+}
+void Burbuja( Cardinal &x ) {
+  byte d, d2;
+  if ( x >= 10 ) {
+    d = x % 10;
+    x = x / 10;
+    Burbuja(x);
+    d2 = x % 10;
+    x = x / 10;
+    if ( d < d2 )
+      x = ( x * 10 + d ) * 10 + d2;
+    else
+      x = ( x * 10 + d2 ) * 10 + d;
+  }
+}
+//------------------------------------------------------------------------------
+// 15) PROGRAMA QUE JUNTA LOS DÍGITOS DE 2 NÚMEROS EN UN SOLO NÚMERO //
+void juntar( Cardinal x, Cardinal y, Cardinal &z ) {
+    if ( y < 10 ) {
+      z = ( x * 10 ) + y;
+    }
+    else {
+      byte  d = y % 10;
+      juntar( x, y / 10, z );
+      z = ( z * 10 ) + d;
+    }
+}
+//------------------------------------------------------------------------------
+// 16) PROGRAMA PARA ORDENAR UN NÚMERO POR EL MÉTODO INSERTAR //
+void Insertar( Cardinal &x, byte d );
+void Ordenar( Cardinal &x ) {
+  if ( x >= 10 ) {
+    byte d;
+    Insertar( x, d );
+    d = x % 10;
+    d = x / 10;
+    Ordenar( x );
+  }
+}
+void Insertar( Cardinal &x, byte d ) {
+  if ( x < 10 ) {
+    if ( x < d )
+      x = x * 10 + d;
+    else
+      x = d * 10 + x;
+  }
+  else {
+    byte d2;
+    d2 = x % 10;
+    x = x / 10;
+    Insertar( x, d );
+    if ( d2 >= ( x % 10 ) )
+      x = x * 10 + d2;
+    else {
+      d = x % 10;
+      x = x / 10;
+      x = x * 10 + d2;
+      x = x * 10 + d;
+    }
+  }
+}
+//------------------------------------------------------------------------------
+// 17) PROGRAMA QUE MUESTRA EL MENOR DÍGITO DE UN NÚMERO //
+byte MenorDigito( Cardinal x ) {
+  byte d, men = 9;
+  if ( x >= 10 ) {
+    d = x % 10;
+    x = x / 10;
+    MenorDigito( x );
+    if ( d < men )
+      men = d;
+  }
+   return ( men );
+}
+//------------------------------------------------------------------------------
+// 18) PROGRAMA QUE MUESTRA EL MAYOR DÍGITO DE UN NÚMERO //
+/*byte MayorDigito( Cardinal x ) {
+  byte d, may = 0;
+  if ( x >= 10 ) {
+    d = x % 10;
+    x = x / 10;
+    MayorDigito( x );
+    if ( d > may )
+      may = d;
+  }
+   return ( may );
+}*/
+//------------------------------------------------------------------------------
+// 19) PROGRAMA QUE DEVUELVE TRUE SI UN NÚMERO ESTÁ ORDENADO //
+bool EstaOrdenado( Cardinal &x ) {
+  bool b;
+  if ( x < 10 )
+    b = true;
+  else {
+    byte d;
+    d = x % 10;
+    x = x / 10;
+    b = EstaOrdenado( x );
+    if ( d >= ( x % 10 ) )
+      b = true;
+    else
+      b = false;
+  }
+}
+// 9.2) HACER UN PROGRAMA QUE DEVUELVA TRUE SI UN NÚMERO ESTÁ ORDENADO
+// EJ: X = 12379 -> TRUE
+// EJ: X = 489 -> TRUE
+// EJ: X = 74512 -> FALSE
+// EJ: X = 123450 -> FALSE
+
+bool estaOrden( int n ) {
+  bool bb;
+  int d;
+  if ( n < 10 )
+    bb = true;
+  else {
+    d = n % 10;
+    n = n / 10;
+    bb = estaOrden( n );
+    if ( bb ) {
+      if ( d >= ( n % 10 ) )
+        bb = true;
+      else
+        bb = false;
+    }
+  }
+  return ( bb );
+}
+//------------------------------------------------------------------------------
+// 20) PROGRAMA QUE DEVUELVE EL N-ÉSIMO TÉRMINO DE LA SERIE DE FIBONACCI //
+Cardinal Fibo( byte n ) {
+  Cardinal f;
+  if ( n < 1 )
+    throw new Exception( "ERROR" );
+  else {
+    if ( n == 1 )
+      f = 0;
+    else
+      if ( n == 2 )
+        f = 1;
+      else
+        f = Fibo( n - 2 ) + Fibo( n - 1 );
+  }
+  return ( f );
+}
+//------------------------------------------------------------------------------
+// 21) PROGRAMA QUE ELEVA UN NÚMERO X A LA N //
+float Potencia( Word x, Word n ) {
+  float p;
+  if ( ( x == 0 ) && ( n == 0 ) )
+    throw new Exception( "ERROR" );
+  else
+    if ( n == 0 )
+      p = 1;
+    else {
+      p = Potencia( x, n / 2 );
+      p = p * p;
+      if ( ( n % 2 ) == 1 )
+        p = p * x;
+    }
+    return ( p );
+}
+//------------------------------------------------------------------------------
+// 22) PROGRAMA QUE DEVUELVE TRUE SI UN NÚMERO ES PAR  //
+bool EsImpar( Cardinal x );
+bool EsPar( Cardinal x ) {
+  bool p;
+  if ( x == 0 )
+    p = true;
+  else
+    p = EsImpar( x - 1 );
+    return ( p );
+}
+bool EsImpar( Cardinal x ) {
+  bool i;
+  if ( x == 0 )
+    i = false;
+  else
+    i = EsPar( x - 1 );
+  return ( i );
+}
+//------------------------------------------------------------------------------
+// 23) PROGRAMA QUE MUESTRA N VECES HOLA Y UNA VEZ CHAU //
+void MostrarHola( Word n ) {
+  if ( n == 0 )
+    ShowMessage(" JEJE CHAU ");
+  else {
+    ShowMessage( " HOLA " );
+    MostrarHola( n - 1 );
+  }
+}
+//------------------------------------------------------------------------------
+// 24) PROGRAMA QUE MUESTRA EL FACTORIAL DE UN NÚMERO //
+Cardinal Factorial( byte n ) {
+  Cardinal f;
+  if ( n == 0 )
+    f = 1;
+  else
+    f = Factorial( n - 1 ) * n;
+  return ( f );
+}
+//------------------------------------------------------------------------------
+// 25) PROGRAMA QUE MUESTRA EL N-ÉSIMO TÉRMINO DE LA SERIE: 0.1.3.7.15.31.63..N //
+Word Nesimo( byte n ) {
+ Word t;
+ if ( n == 0 )
+   throw new Exception( "ERROR" );
+ else {
+   if ( n == 1 )
+     t = 0;
+   else
+     t = Nesimo( n - 1 ) * 2 + 1;
+ }
+ return ( t );
+}
+//------------------------------------------------------------------------------
+// 26) PROGRAMA QUE MUESTRA LA SERIE: 1.2.3.6.7.14.15.30...n //
+int GenerarSerie ( byte n ) {
+  int t;
+  if ( n == 1 )
+    t = 1;
+  else {
+    if ( ( n % 2 ) == 0 )
+      t = GenerarSerie( n - 1 ) * 2;
+    else
+      t = GenerarSerie( n - 1 ) + 1;
+  }
+  return ( t );
+}
+//------------------------------------------------------------------------------
+// 27) PROGRAMA QUE MUESTRA LA SUMA DE LA SERIE: 1.2.3.6.7.14.15.30...n //
+int SumaSerie( byte n ) {
+  int s;
+  if ( n == 0 )
+    s = 0;
+  else {
+    s = SumaSerie( n - 1 ) + GenerarSerie( n );
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 28) PROGRAMA QUE SEPARA LOS DÍGITOS DE UN NÚMERO: X=34876 SALIDA:6,7,8,7,6 //
+byte SepararDigito( Cardinal x ) {
+  byte d;
+  if ( x < 10 )
+    ShowMessage( x );
+  else {
+    d = x % 10;
+    x = x / 10;
+    ShowMessage( d );
+    SepararDigito( x );
+  }
+}
+//------------------------------------------------------------------------------
+// 29) PROGRAMA QUE MUESTRA SUMA N...
+int SumaN( int n ) {
+  int s,a;
+  if ( n == 0 )
+    s = 0;
+  else {
+    a = n % 10;
+    s = SumaN( n / 10 ) + a;
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 30) PROGRAMA QUE MUESTRA LOS DÍGITOS DE UN NÚMERO
+void mostrarDigitos( int n ) {
+  int x;
+  if ( n < 10 )
+    ShowMessage( n );
+  else {
+    mostrarDigitos( n / 10 );
+    ShowMessage( n % 10 );
+  }
+}
+//------------------------------------------------------------------------------
+// 31) PROGRAMA QUE MUESTRA LOS DÍGITOS QUE ESTÉN AL LADO DERECHO DE UN DÍGITO PAR
+void mostrarDerecho( int n ) {
+  int s;
+  if ( n > 10 ) {
+    s = n / 10;
+    mostrarDerecho( n / 10 );
+    if (  ( s % 10 ) % 2  == 0 )
+      ShowMessage( n % 10 );
+  }
+}
+
+///**************************************************************************///
+///******************************   VECTORES   ******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+// 30) PROGRAMA QUE DEVUELVE TRUE SI UN VECTOR ESTÁ ORDENADO DE MENOR A MAYOR //
+bool EstaOrdenado( int v[], Cardinal &n ) {
+  bool e;
+  if ( n <= 1 )
+    e = true;
+  else {
+    n--;
+    e = EstaOrdenado( v, n );
+    n++;
+    if ( e ) {
+      if ( v[ n - 1 ] < v[ n - 2 ] )
+      e = false;
+    }
+  }
+  return ( e );
+}
+
+bool enOrdenVec( int v[], int n ) {
+  bool bb = false;
+  if ( n == 1 )
+    bb = true;
+  else {
+    bb = enOrdenVec( v, n - 1 );
+    if ( bb && ( v[ n - 1 ] >= v[ n - 2 ] ) ) //>= o ==
+      bb = true;
+    else
+      bb = false;
+  }
+  return ( bb );
+}
+//------------------------------------------------------------------------------
+// 31) PROGRAMA QUE DEVUELVE TRUE SI UN VECTOR ESTÁ ORDENADO DE MAYOR A MENOR //
+bool EstaOrdenado1( int v[], Cardinal &n ) {
+  bool e;
+  if ( n <= 1 )
+    e = true;
+  else {
+    n--;
+    e = EstaOrdenado1( v, n );
+    n++;
+    if ( e ){
+      if ( v[ n - 1 ] > v[ n - 2 ] )
+      e = false;
+    }
+  }
+  return ( e );
+}
+//------------------------------------------------------------------------------
+// 32) PROGRAMA QUE MUESTRA LA SUMA DE LOS DÍGITOS PARES DE UN VECTOR //
+int sumaPares ( int v[], Word n ) {
+  int s;
+  if ( n == 0 ) {
+    s = 0;
+  }
+  else {
+    s = sumaPares( v, n - 1 );
+    if ( ( v[ n - 1 ] % 2 ) == 0 )
+      s = s + v[ n - 1 ];
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 33) PROGRAMA QUE MUESTRA LA SUMA DE LOS DÍGITOS IMPARES DE UN VECTOR //
+int SumaImpares ( int v[], byte n ) {
+  int s;
+  if ( n == 0 ) {
+    s = 0;
+  }
+  else {
+    s = SumaImpares( v, n - 1 );
+    if ( ( v[ n - 1 ] % 2 ) == 1 )
+      s = s + v[ n - 1 ];
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 34) PROGRAMA QUE MUESTRA LA SUMA DE LOS ELEMENTOS DE UN VECTOR //
+int SumaV( int v[], Word n ) {
+  int s;
+  if ( n == 0 ) {
+    s = 0;
+  }
+  else {
+    s = SumaV( v, n - 1 );
+    s = s + v[ n - 1 ];
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// X) PROGRAMA QUE MUESTRA LA SUMA DE DÍGITOS PARES Y SUMA DE IMPARES DE UN VECTOR //
+int sumParImp ( int v[], Word n ) {
+  int s;
+  if ( n == 0 ) {
+    s = 0;
+  }
+  else {
+    s = sumParImp( v, n - 1 );
+    if ( ( v[ n - 1 ] % 2 ) == 0 )
+      s = s + v[ n - 1 ];
+    if ( ( v[ n - 1 ] % 2 ) == 1 )
+      s = s + v[ n - 1 ];
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// XX) PROGRAMA QUE MUESTRA SUMA DE DÍGITOS PARES - SUMA DE IMPARES DE LOS ELEM DE UN VECTOR //
+//------------------------------------------------------------------------------
+// 35) PROGRAMA QUE MUESTRA EL PROMEDIO DE LOS ELEMENTOS DE UN VECTOR //
+float PromedioV( int v[], int n ) {
+  float p = 0;
+  if ( n > 0 ) {
+    p = PromedioV( v, n - 1 );
+    p = ( ( n - 1 ) * p + v[ n - 1 ] ) / n;
+  }
+  return ( p );
+}
+//------------------------------------------------------------------------------
+// 36) PROGRAMA PARA ROTAR LOS ELEMENTOS DE UN VECTOR UNA CASILLA A LA DERECHA //
+void Rotar( int v[], byte n ) {
+ byte aux;
+ if ( n > 1 ) {
+   Rotar( v, n - 1 );
+   aux = v[ 0 ];
+   v[ 0 ] = v[ n - 1 ];
+   v[ n - 1 ] = aux;
+ }
+}
+
+void rotarDer( TStringGrid *v, byte n ) {
+ String x;
+ if ( n > 1 ) {
+   rotarDer( v, n - 1 );
+   x = v->Cells[0][0];
+   v->Cells[0][0] = v->Cells[ n - 1 ][ 0 ];
+   v->Cells[ n - 1 ][ 0 ] = x;
+ }
+}
+//------------------------------------------------------------------------------
+// xxxxxX) PROGRAMA PARA ROTAR LOS ELEMENTOS DE UN VECTOR UNA CASILLA A LA IZQUIERDA //
+void rotarIzq( int v[], byte n ) {
+ byte aux;
+ if ( n > 1 ) {
+   rotarIzq( v, n - 1 );
+   aux = v[ n - 1 ];
+   v[ n - 1 ] = v[ n - 2 ];
+   v[ n - 2 ] = aux;
+ }
+}
+
+void rotarIzq1( TStringGrid *v, byte n ) {
+ String x;
+ if ( n > 1 ) {
+   rotarIzq1( v, n - 1 );
+   x = v->Cells[ n - 1 ][ 0 ];
+   v->Cells[ n - 1 ][ 0 ] = v->Cells[ n - 2 ][ 0 ];
+   v->Cells[ n - 2 ][ 0 ] = x;
+ }
+}
+//------------------------------------------------------------------------------
+// 37) PROGRAMA PARA MOVER EL ÚLTIMO ELEMENTO AL LUGAR QUE LE CORRESPONDA //
+void InsertarX( int v[], Word n ) {
+  int aux;
+  if ( n > 1 ) {
+    if ( v[ n - 2 ] > v[ n - 1 ] ) {
+      aux = v[ n - 2 ];
+      v[ n - 2 ] = v[ n - 1 ];
+      v[ n - 1 ] = aux;
+      InsertarX( v, n - 1 );
+    }
+  }
+}
+
+void inserccion( int v[], int &n, int x ) {
+  if ( n == 0 ) {
+    n++;
+    v[ n - 1 ] = x;
+  }
+  else {
+    if ( x > v[ n - 1 ] ) {
+      n++;
+      v[ n - 1 ] = x;
+    }
+    else {
+      int aux = v[ n - 1 ];
+      n--;
+      inserccion( v, n, x );
+      n++;
+      v[ n - 1 ] = aux;
+    }
+  }
+}
+//------------------------------------------------------------------------------
+// 38) PROGRAMA QUE MUESTRA EL MAYOR  DE LOS ELEMENTOS DE UN VECTOR //
+byte Mayor( int v[], Word n ) {
+  int may;
+  if ( n == 0 ) {
+    throw new Exception( "ERROR" );
+  }
+  else {
+    if ( n == 1 ) {
+      may = v[ 0 ];
+    }
+    else {
+      may = Mayor( v, n - 1 );
+      if ( ( v[ n - 1 ] ) > may )
+        may = v[ n - 1 ];
+    }
+    return ( may );
+  }
+}
+//------------------------------------------------------------------------------
+// 39) PROGRAMA QUE MUESTRA EL MENOR DE LOS ELEMENTOS DE UN VECTOR //
+byte Menor( int v[], Word n ) {
+  int men;
+  if ( n == 0 ) {
+    throw new Exception( " ERROR" );
+  }
+  else {
+    if ( n == 1 ) {
+      men = v[ 0 ];
+    }
+    else {
+      men = Menor( v, n - 1 );
+      if ( ( v[ n - 1 ] ) < men )
+        men = v[ n - 1 ];
+    }
+    return ( men );
+  }
+}
+//------------------------------------------------------------------------------
+// 40) PROGRAMA QUE ORDENA LOS ELEMENTOS DE UN VECTOR POR MÉTODO DE LA BARAJA //
+void InsertionSort( int v[], Word n ) {
+  if ( n > 1 ) {
+    InsertionSort( v, n - 1 );
+    InsertionSort( v, n );
+  }
+}
+//------------------------------------------------------------------------------
+// 41) PROGRAMA QUE ELIMINA UN ELEMENTO DEL VECTOR //
+void EliminarElemento( int v[], int &n, int x ) {
+  if ( n > 0 ) {
+    int aux;
+    aux = v[ n - 1 ];
+    n--;
+    EliminarElemento( v, n, x );
+    if ( x != aux ) {
+      v[ n ] = aux;
+      n++;
+    }
+  }
+}
+
+void elimDato( TStringGrid *v, int &n, int x ) {
+  if ( n > 0 ) {
+    String aux;
+    aux = v->Cells[ n - 1 ][ 0 ];
+    n--;
+    elimDato( v, n, x );
+    if ( x != aux ) {
+      v->Cells[ n ][ 0 ] = aux;
+      n++;
+    }
+  }
+}
+//------------------------------------------------------------------------------
+String VecToStr( int v[], int n ) {
+  String s;
+  if( n == 0 )
+    s = " ";
+  else
+    s = VecToStr( v, n - 1 ) + ";" + IntToStr( v[ n - 1 ] );
+  return ( s );
+}
+
+String VecToStr2( int v[], int v1[], int n, int m ) {
+  String s;
+  if ( ( n == 0 ) && ( m == 0 ) )
+    s = " ";
+  else
+    s = VecToStr2( v, v1, n-1, m-1 ) + ";" + IntToStr( v[ n - 1 ] ) + IntToStr( v1[ m - 1 ] );
+    //s = VecToStr2( v, v1, n-1, m-1 ) + ";" + IntToStr( v[ n - 1 ] ) + ";" + IntToStr( v1[ m - 1 ] );
+    return ( s );
+}
+//------------------------------------------------------------------------------
+// 42) PROGRAMA QUE EMPUJA EL MAYOR DÍGITO DEL VECTOR A LA ÚLTIMA CASILLA //
+void Burbu( int v[], int n ) {
+  byte aux;
+  if ( n > 1 ) {
+    Burbu( v, n - 1 );
+    if ( v[ n - 2 ] > v[ n - 1 ] ) {
+      aux = v[ n - 1 ] ;
+      v[ n - 1 ] = v[ n - 2 ];
+      v[ n - 2 ] = aux;
+    }
+  }
+}
+
+void burbujita( TStringGrid *v, int n ) {
+  String aux;
+  if ( n > 1 ) {
+    burbujita( v, n - 1 );
+    if ( v->Cells[ n - 2 ][0] > v->Cells[ n - 1 ][0] ) {
+      aux = v->Cells[ n - 1 ][0];
+      v->Cells[ n - 1 ][0] = v->Cells[ n - 2 ][0];
+      v->Cells[ n - 2 ][0] = aux;
+    }
+  }
+}
+//------------------------------------------------------------------------------
+// 43) PROGRAMA QUE ORDENA UN VECTOR POR EL MÉTODO DE BURBUJEAR //
+void OrdenarBurbu( Word n, int v[] ) {
+  if ( n > 1 ) {
+    Burbu( v, n );
+    OrdenarBurbu( n - 1, v );
+  }
+}
+//------------------------------------------------------------------------------
+// 44) PROGRAMA QUE INVIERTE LOS ELEMENTOS DE UN VECTOR //
+void Invertir( int v[], Word a, Word b ) {  //Proceso Privado WORD = SHORT
+  Word n;
+  int aux;
+  n = b - a + 1;
+  if ( n > 1 ) {
+    aux = v[ a ];
+    v[ a ] = v[ b ];
+    v[ b ] = aux;
+    Invertir( v, a + 1, b - 1 );
+  }
+}
+void Invertir( int v[], Word n ) {  //Proceso Público
+  Invertir( v, 0, n - 1 );  //Máscara
+}
+
+void invVector( TStringGrid *v, int a, int b ) {
+  int n;
+  String x;
+  n = b - a + 1;
+  if ( n > 1 ) {
+    x = v->Cells[ b ][ 0 ];
+    v->Cells[ b ][ 0 ] = v->Cells[ a ][ 0 ];
+    v->Cells[ a ][ 0 ] = x;
+    invVector( v, a + 1, b - 1 );
+  }
+}
+void invert( TStringGrid *v ) {
+  invVector( v, 0, v->ColCount - 1 );
+}
+//------------------------------------------------------------------------------
+// 45) PROGRAMA QUE DEVUELVE TRUE SI EL DATO X EXISTE DENTRO DE UN VECTOR ORDENADO //
+bool BusBin( int v[], Word a, Word b, int x ) {
+  bool bb;
+  Word c;             //v[1,2,4,6,9,10,11,12,20,30,31,35]
+  Word n;            //  a=1;  c=10;  b=35;
+  n = b - a + 1;
+  if ( n == 0 )
+    bb = false;
+  else {
+    c = ( a + b ) / 2;
+    if ( v[ c ] == x )
+      bb = true;
+    else
+      if ( x < v[ c ] )
+        bb = BusBin( v, a, c - 1, x );
+      else
+        bb = BusBin( v, c + 1, b, x );
+  }
+  return ( bb );
+}
+bool BusBin( int v[], Word n, int x ) {
+  return ( BusBin( v, 0, n - 1, x ) );
+}
+
+bool busBinaria( TStringGrid *v, int x, int a, int b ) {
+  bool h;
+  int c;             //v[1,2,4,6,9,10,11,12,20,30,31,35]
+  int n;            //  a=1;  c=10;  b=35;
+  n = b - a + 1;
+  if ( n == 0 )
+    h = false;
+  else {
+    c = ( a + b ) / 2;
+    if ( x == StrToInt( v->Cells[ c ][ 0 ] ) )
+      h = true;
+    else
+      if ( x > StrToInt( v->Cells[ c ][ 0 ] ) )
+        h = busBinaria( v, x, c + 1, b );
+      else
+        h = busBinaria( v, x, a, c - 1 );
+  }
+  return ( h );
+}
+bool busBinaria( TStringGrid *v, int x, int n ) {
+  return ( busBinaria( v, x, 0, n - 1 ) );
+}
+//------------------------------------------------------------------------------
+// 46) PROGRAMA QUE ORDENA LOS ELEMENTOS DE UN VECTOR POR EL MÉTODO QUICKSORT //
+void Pivotear( int v[], short a, short b, int &c );
+void QuickSort( int v[], short a, short b ) {
+  short n;
+  short c;
+  n = b - a + 1;
+  if ( n > 1 ) {
+    Pivotear( v, a, b, c );
+    QuickSort( v, a, c - 1 );
+    QuickSort( v, c + 1, b );
+  }
+}
+void QuickSort( int v[], short n ) {
+  return ( QuickSort( v, 0, n - 1 ) );
+}
+void Pivotear( int v[], short a, short b, int &c, int sw ) {
+  short n;
+  n = b - a + 1;
+  if ( n < 2 )
+    c = a;
+  else {
+    if ( v[ a ] > v[ b ] ) {
+      int x = v[ a ];
+      v[ a ] = v[ b ];
+      v[ b ] = x;
+      sw = - sw;
+    }
+    if ( sw == 1 )
+      Pivotear( v, a + 1, b, c, sw );
+    else
+      Pivotear( v, a, b - 1, c, sw );
+  }
+}
+void Pivotear( int v[], short a, short b, int &c ) {
+  return ( Pivotear( v, a, b, c, 1 ) );
+}
+//------------------------------------------------------------------------------
+// 47) PROGRAMA QUE DEVUELVE TRUE SI X ESTÁ ANTES QUE Y EN UN VECTOR //
+bool EstaAntes( int v[], Word n, int x, int y ) {
+  bool e;
+  int z;
+  if ( n < 2 )
+    e = false;
+  else {
+    if ( v[ n - 1 ] == y ) {
+      if ( v[ n - 2 ] == x )
+        e = true;
+      else {
+        z = v[ n - 2 ];
+        e = EstaAntes( v, n - 1, x, z );
+      }
+    }
+    else
+      e = EstaAntes( v, n - 1, x, y );
+  }
+  return ( e );
+}
+//------------------------------------------------------------------------------
+// 48) PROGRAMA QUE DEVUELVE TRUE SI X ESTÁ DESPUÉS QUE Y EN UN VECTOR //
+// EJ: V[1,5,8,7,3,2,6] X=2 y Y=8 -> TRUE
+bool estaDespues( int v[], Word n, int x, int y ) {
+  bool e;
+  int z;
+  if ( n <= 1 )
+    e = false;
+  else {
+    if ( v[ n - 1 ] == x ) {
+      if ( v[ n - 2 ] == y )
+        e = true;
+      else {
+        z = v[ n - 2 ];
+        e = estaDespues( v, n - 1, z, y );
+      }
+    }
+    else
+      e = estaDespues( v, n - 1, x, y );
+  }
+  return ( e );
+}
+//----------------------------------------------------------------------------
+// 49) ESTE MÉTODO ORDENA LOS ELEMENTOS DEL VECTOR DE FORMA ASCENDENTE
+void I( int v[], Word n );
+void P( int  v[], Word n ) {
+  Word i;
+  i = 1;
+  while ( i < n ) {
+    I( v, i );
+    i++;
+  }
+}
+void I( int v[], Word n ) {
+  Word i;
+  Word x;
+  i = n;
+  while ( i > 0 ) {
+    if ( v[ i ] < v[ i - 1 ] ) {
+      x = v[ i ];
+      v[ i ] = v[ i - 1 ];
+      v[ i -1 ] = x;
+      i--;
+    }
+    else
+      i = 0;
+  }
+}
+//------------------------------------------------------------------------------
+// 50) PROGRAMA QUE SEPARA LOS DÍGITOS PARES DE LOS IMPARES DE UN VECTOR DE N ELEMENTOS
+void rota( int v[], Word n );
+
+void sepParImp( int v[], Word n ) {
+  if ( n > 1 ) {
+    int x ;
+    x = v[ n - 1 ];
+    sepParImp( v, n - 1 );
+    if ( ( x % 2 ) == 0 )
+      rota( v, n );
+  }
+}
+void rota( int v[], Word n ) {
+  if ( n > 1 ) {
+    rota( v, n - 1 );
+    int x;
+    x = v[ n - 1 ];
+    v[ n - 1 ] = v[ 0 ];
+    v[ 0 ] = x;
+  }
+}
+
+
+void rotax( int v[], int n );
+void separart( int v[], int n ) {
+  if ( n > 1 ) {
+    separart(v,n-1);
+    if ( v[n-1]%2==0)
+      rotax(v,n);
+  }
+}
+void rotax(int v[], int n ) {
+  if ( n > 1 ) {
+    rotax( v, n - 1 );
+    int x;
+    x = v[ 0 ];
+    v[ 0 ] = v[ n - 1 ];
+    v[ n - 1 ] = x;
+  }
+}
+///-----------------------------------------------------------------------------
+// 51) CARGAR UN VECTOR CON LOS N PRIMEROS TÉRMINOS DE LA SERIE DE FIBONACCI
+void CargarFibo( int v[], Word n ) {
+  if ( ( n < 3) && ( n > 0 ) ) {
+    if ( n < 2 )
+      v[ n - 1 ] = 1;
+    else {
+      v[ n - 2 ] = 1;
+      v[ n - 1 ] = 1;
+    }
+  }
+  else {
+    CargarFibo( v, n - 1 );
+    v[ n - 1 ] = v[ n - 2 ] + v[ n - 3 ];
+  }
+}
+//------------------------------------------------------------------------------
+// 52) MUESTRA LA SUMA DE LOS DÍGITOS EN LAS POSICIONES PARES DE UN VECTOR
+int sumaPosPares( int v[], int n ) {
+  int s = 0;
+  int d = 0;
+  if ( n > 1 ) {
+    d = v[ n ];
+    s = sumaPosPares( v, n - 1 );
+    if ( d % 2 == 0 ) {
+      s = s + d;
+    }
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 53) MUESTRA SI EL VECTOR ESTÁ ORDENADO CON UNA CTTE EXTRA 1=ASC; 2=DESC (m)
+bool EstaOrdenadovector( int v[], int n, int &m ) {
+  bool e;
+  if ( n == 1 ) {
+    e = true;
+    m = m;
+  }
+  else {
+    if ( m ==1 ) {
+    if ( v[ n - 1 ] < v[ n - 2 ] )
+      e = EstaOrdenadovector( v, n - 1, m );
+      e = false;
+    }
+    else {
+      if ( m == 2 ) {
+        e = EstaOrdenadovector( v, n - 1, m );
+        e = false;
+      }
+      else
+        throw new Exception( "ERROR" );
+    }
+  }
+  return ( e );
+}
+///-----------------------------------------------------------------------------
+// 54) MUESTRA EL VALOR MÁXIMO Y MÍNIMO DE LOS ELEMENTOS DE UN VECTOR
+void MaxMin( int v[], int n,int &Max, int &Min ) {
+   if ( n > 1 ) {
+     MaxMin( v, n - 1, Max, Min );
+     if ( v[ n - 1 ] > Max )
+       Max = v[ n - 1 ];
+     else {
+       if ( v[ n - 1 ] < Min )
+         Min = v[ n - 1 ];
+     }
+   }
+   if ( n == 1 ) {
+     Max = v[ n - 1 ];
+     Min = v[ n - 1 ];
+   }
+}
+///-----------------------------------------------------------------------------
+// 55) MUESTRA LA POSICIÓN DEL ELEMENTO DE UN VECTOR
+int posi( int v[], int x, Word n ) {
+  int i, p;
+  p = - 1;
+  i = 0;
+  while ( ( i < n ) && ( p == - 1 ) ) {
+    if ( x == v[ i ] )
+      p = i;
+      i++;
+  }
+  return ( p );
+}
+///-----------------------------------------------------------------------------
+// 56) MUESTRA HALLADO  DE UN VECTOR
+bool hallado( int v[], int x, Cardinal n ) {
+  Cardinal a, b, c;
+  bool bb;
+  a = 0;
+  b = n - 1;
+  bb = false;
+  while ( ( a <= b ) && ( !bb ) ) {
+    c = ( a + b ) / 2;
+    if ( v[ c ] == x )
+      bb = true;
+    else
+      if ( x < v[ c ] )
+        b = c - 1;
+      else
+        a = c + 1;
+  }
+  return ( bb );
+}
+///-----------------------------------------------------------------------------
+// 57) FUNCIÓN QUE MUESTRA LA SUMA DE LAS CASILLAS PARES
+int sumCasillaPar( int v[], int n ) {
+  int sum = 0;
+  if ( n == 1 )
+    sum = v[ 0 ];
+  else {
+    sum = sumCasillaPar( v, n - 1 );
+    if ( ( n - 1 ) % 2 == 0 )
+      sum = sum + v[ n - 1 ];
+  }
+  return ( sum );
+}
+
+
+///**************************************************************************///
+///**************************************************************************///
+void intercambiar( int v[], int v1[], short n, short m ) {
+  int i = 0;
+  int aux, x;
+  while ( ( i < n ) || ( i < m ) ) {
+    aux = v[ i ];
+    //x = v[ i ];
+    //v1[ i ] = aux;
+    v[ i ] = v1[ i ];
+    v[ i ] = x;
+    i++;
+  }
+}
+
+
+///**************************************************************************///
+///************* EJERCICIOS DEL PRÁCTICO # 1 DEL CURSO DE VERANO ************///
+///**************************************************************************///
+
+float promedio( int v[], int n ) {
+  int sum = 0;
+  int i = 0;
+  float prom = 0;
+  while ( i < n ) {
+    sum = sum + v[ i ];
+    i++;
+  }
+  prom = sum / n;
+  return ( prom );
+}
+//------------------------------------------------------------------------------
+void concatenar( int v[], int v1[], int n, int m, int vx[], int &k ) {
+  for ( int k = 0; k < n; k++ ) {
+    vx[ k ] = v[ k ];
+  }
+  for ( int i = 1; i <= n; i++ ) {
+    vx[ k + 1 ] = v1[ i - 1 ];
+ }
+ k += m + 1;
+}
+//------------------------------------------------------------------------------
+bool repetidos( int v[], int n ) {
+  bool bb = false;
+  int k = 0;
+  while( ( k < n ) && ( !bb ) ) {
+    int i = k + 1;
+    while ( ( i < n ) && ( !bb ) ) {
+      if ( v[ k ] == v[ i ] ) {
+        bb = true;
+        i++;
+      }
+    }
+    k++;
+  }
+}
+//------------------------------------------------------------------------------
+int prodMaxMin( int v[], int n ) {
+  int i = 1;
+  int max = v[ 0 ];
+  int min = v[ 0 ];
+  while ( i < n ) {
+    if ( v[ i ] > max )
+      max = v[ i ];
+    if ( v[ i ] < min )
+      min = v[ i ];
+      i++;
+  }
+  return ( max * min );
+}
+//------------------------------------------------------------------------------
+void prodCartesiano( int v[], int v1[], int n, int m, int vx[] ) {
+  int i = 0;
+  int k = 0;
+  while ( i < n ) {
+    int j = 0;
+    while ( j < m ) {
+      vx[ k ] = v[ i ];
+      k++;
+      vx[ k ] = v1[ j ];
+      k++;
+      j++;
+    }
+    i++;
+  }
+}
+//------------------------------------------------------------------------------
+int hamming( int v[], int v1[], int n, int m ) {
+  if ( n == m ) {
+    int c = 0;
+    for ( int i = 0; i < n; i++ ) {
+      if ( v[ i ] != v1[ i ] )
+        c++;
+    }
+    return ( c );
+  }
+}
+//------------------------------------------------------------------------------
+int Pro1( int n ) {
+  int x, y, z;
+  x = n; y = 0; z = 0;
+  while ( y < x - 1 ) {
+    y = y + 1; z = z + y;
+  }
+  return ( z );
+}
+//------------------------------------------------------------------------------
+int Pro2( int n ) {
+  int i, j, c;
+  c = 0;
+  for ( i = 1; i <= n; i++ ) {
+    for ( j = 1; j <= i; j++ ) {
+      c = c + j;
+    }
+  }
+  return ( c );
+}
+//------------------------------------------------------------------------------
+int Pro3( int v[], int n ) { // OJO : CICLO INFINITOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+  int p, i, j, s;
+  p = 1;
+  i = 1;
+  while ( i <= n ) {
+    s = 0;
+    j = 1;
+    while ( j < i ) {
+      s = v[ j ] - s;
+      j = j + 1;
+    }
+    p = p * s;
+  }
+  return ( p );
+}
+//------------------------------------------------------------------------------
+int Pro4( int v[], int n ) {
+  int x, i, j, k;
+  x = n;
+  i = 1;
+  while ( i < ( n - 2 ) ) {
+    for ( j = i + 1; j < n; j++ ) {
+      k = j + 1;
+      while ( k < n ) {
+        k = k + 1;
+        x = x + ( v[ i ] * v[ j ] * v[ k ] - 1 );
+      }
+    }
+    i = i + 1;
+  }
+  return ( x );
+}
+
+
+///**************************************************************************///
+///************* EJERCICIOS DEL PRÁCTICO # 2 DEL CURSO DE VERANO ************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+// # 1)
+bool SumaMitades(int v[],Word a,Word b,int &p,int &s) {
+  bool sw;
+  int n;
+  n=b-a+1;
+  if ( (n==1)||(n==2)){
+    if(n==1){
+      s=s+v[b];
+      sw=(p==s);
+    }
+    else {
+      p=p+v[a];
+      s=s+v[b];
+      sw=(p==s);
+    }
+  }
+  else {
+    p=p+v[a];
+    s=s+v[b];
+    sw=SumaMitades(v,a+1,b-1,p,s);
+  }
+  return sw;
+}
+bool SumaMitades( int v[], int n ) {  //MÁSCARA
+  bool sw;
+  int p = 0, s = 0;
+  if( n > 1 )
+    sw = ( SumaMitades( v, 0, n - 1, p, s ) );
+    return ( sw );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+  /*int v[ 8 ] = { 8, 2, 3, 1, 3, 5, 6 }, n = 8;
+  if( SumaMitades( v, n ) )
+    ShowMessage( " SON IGUALES " );
+  else
+    ShowMessage( "No son Iguales" );*/  //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n;
+  String x;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  if( SumaMitades( v, n ) )
+    ShowMessage( " SON IGUALES " );
+  else
+    ShowMessage( "No son Iguales" );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 2)
+bool existe( int v[], int n, int x ) {
+  bool bb = false;
+  if ( n > 0 ) {
+    bb = existe( v, n - 1, x );
+    if ( v[ n - 1 ] == x )
+      bb = true;
+  }
+  return ( bb );
+}
+
+bool contenido( int v[], int v1[], int n, int m ) {
+  int a;
+  bool sw = true;
+  if ( n > 0 ) {
+    sw = contenido(v,v1,n-1,m);
+    if ( sw ) {
+      a = v[n-1];
+      if ( existe(v1,m,a)) {
+        sw = true;
+      }
+      else {
+        sw = false;
+      }
+    }
+  }
+  return ( sw );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+  /*int v[ 3 ] = { 2, 3, 4 };
+  int n = 3;
+  int v1[ 6 ] = { 1, 2, 3, 4, 5, 6 };
+  int m = 6;
+  if ( contenido( v, v1, n, m ) )
+    ShowMessage( "EL VECTOR A ESTÁ EN EL VECTOR B" );
+  else
+    ShowMessage( "EL VECTOR A NO ESTÁ EN EL VECTOR B" );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 3) MUESTRA EL PRODUCTO DE DOS NÚMEROS POR SUMAS
+int producto( int a , int b ) {
+  int p;
+  if ( b == 0 )
+    p = 0;
+  else
+    p = producto( a, b - 1 ) + a;
+    return ( p );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+/*int a, b;
+  a = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE UN NÚMERO: ", "0" ) );
+  b = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE OTRO NÚMERO: ", "0" ) );
+  int prod = producto( a, b );
+  ShowMessage( prod );*/  //OK OK OK OK OK OK
+//-------------------------------------------------------------------------------
+// # 4) // ELEVA UN NRO X A LA N POR MEDIO DE MULTIPLICACIÓN
+float potencia( Word x, Word n ) {
+  float p;
+  if ( ( x == 0 ) && ( n == 0 ) )
+    throw new Exception( "ERROR" );
+  else
+    if ( n == 0 )
+      p = 1;
+    else {
+      p = potencia( x, n / 2 );
+      p = p * p;
+      if ( ( n % 2 ) == 1 )
+        p = p * x;
+    }
+    return ( p );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+  /*float p, x, n;
+  x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE POTENCIA: ", "0" ) );
+  p = potencia( x, n );
+  ShowMessage( p );*/
+//------------------------------------------------------------------------------
+// # 5)
+void casillaPar( int v[], int n, String &x ) {
+  if ( n == 1 )
+    x = IntToStr( v[ 0 ] );
+  else {
+    casillaPar( v, n-1, x );
+    if ( ( n - 1 ) % 2 == 0 )
+      x = x + "," + IntToStr( v[ n - 1 ] );
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+/*int v[ 5 ] = { 0, 1, 2, 3, 4 };
+  int n = 5;
+  String s;
+  casillaPar( v, 5, s );
+  ShowMessage( s );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 6)
+int cantRepite( int v[], int n, int a ) {
+  int c;
+  if ( n == 0 )
+    c = 0;
+  else {
+    c = cantRepite( v, n - 1, a );
+    if ( v[ n -1 ] == a )
+      c++;
+  }
+  return  ( c );
+}
+int contar(TStringGrid *v, int n, int x ) {
+  int c = 0;
+  if ( n > 0 ) {
+    c = contar( v, n - 1, x );
+    if ( v->Cells[ n - 1 ][ 0 ] == x )
+      c++;
+  }
+  return ( c );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+/*int v[ 5 ] = { 2, 3, 4, 5, 5 };
+  int n = 5;
+  int x = 5, c;
+  c = cantRepite( v, n, x );
+  ShowMessage( c );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 7)
+int proEscalar( int v1[], int v2[], int n ) {
+  int prod;
+  if( n == 0 )
+    prod = 0;
+  else {
+    prod = proEscalar( v1, v2, n - 1 ) + v1[ n - 1 ] * v2[ n - 1 ];
+  }
+  return ( prod );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int v1[ 3 ] = { 1, 2, 3 };
+  int n = 3;
+  int v2[ 3 ] = { 4, 5, 6 };
+  int m = 3;
+  int prod = proEscalar( v1, v2, n );
+  ShowMessage( prod );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 8)
+bool esPalindrome( String s, int x ) {
+  bool bb;
+  char c,e;
+  int n = s.Length( ) - x + 1;
+  if ( ( n == 0 ) || ( n == 1 ) || ( n == 2 ) ) {
+    if ( n == 2 ) {
+      c = s[ n ];
+      e = s[ n - 1 ];
+      bb = ( c == e );
+    }
+    else
+      bb = true;
+  }
+  else {
+    c = s[ n ];
+    e = s[ x ];
+    s = s.SetLength( 1 );
+    bb = esPalindrome( s, x + 1 );
+    if ( bb )
+      bb = ( c == e );
+  }
+  return ( bb );
+}
+bool esPalindrome( String s ) {
+  bool sw;
+  sw = esPalindrome( s, 1 );
+  return ( sw );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*String s = EditMostrar->Text;
+  s = InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "hola" );
+  if ( esPalindrome( s ) )
+    ShowMessage("TRUE");
+  else
+    ShowMessage("FALSE");*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 10)
+int ackerman( int M, int N ) {
+  int res;
+  if ( M == 0 ) {
+    res = N + 1;
+  }
+  else {
+    if ( N == 0 ) {
+      res = ackerman( M - 1, 1 );
+    }
+    else {
+      res = ackerman( M - 1, ackerman( M, N - 1 ) );
+    }
+  }
+  return ( res );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int M, N;
+  M = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE UN NÚMERO: ", "0" ) );
+  N = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE OTRO NÚMERO: ", "0" ) );
+  int res = ackerman(M,N);
+  ShowMessage( res );*/ //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// # 11)
+int sumMayUlt( TStringGrid *v, int n ) {
+  int a,s=0;
+  int x;
+  x=StrToInt(v->Cells[n-1][0]);
+  if(n>1){
+    a=StrToInt(v->Cells[n-2][0]);
+    s=sumMayUlt(v,n-1);
+    if(a>x)
+      s=s+a;
+  }
+  return s;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+//ShowMessage(sumMayUlt(Vextor,Vextor->ColCount));  // OK OK OK OK OK OK
+int sumMayUlt( int v[], int n ) {
+  int a,s=0;
+  int x;
+  x= v[n-1];
+  if(n>1){
+    a=v[n-2];
+    s=sumMayUlt(v,n-1);
+    if(a>x)
+      s=s+a;
+  }
+  return s;
+}
+//------------------------------------------------------------------------------
+// # 12)
+void BurbuVer( int v[], int n ) {
+  byte aux;
+  if ( n > 1 ) {
+    BurbuVer( v, n - 1 );
+    if ( v[ n - 2 ] > v[ n - 1 ] ) {
+      aux = v[ n - 1 ] ;
+      v[ n - 1 ] = v[ n - 2 ];
+      v[ n - 2 ] = aux;
+    }
+  }
+}
+
+void OrdenBurbuVer( Word n, int v[] ) {
+  if ( n > 1 ) {
+    BurbuVer( v, n );
+    OrdenBurbuVer( n - 1, v );
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+  /*int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "** VERANO **", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "** VERANO **", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  OrdenBurbuVer( n, v );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }*/  // OK OK OK OK OK OK
+
+
+void burbujitaVer( TStringGrid *v, int n ) {
+  String aux;
+  if ( n > 1 ) {
+    burbujita( v, n - 1 );
+    if ( v->Cells[ n - 2 ][0] > v->Cells[ n - 1 ][0] ) {
+      aux = v->Cells[ n - 1 ][0];
+      v->Cells[ n - 1 ][0] = v->Cells[ n - 2 ][0];
+      v->Cells[ n - 2 ][0] = aux;
+    }
+  }
+}
+
+void OrdenBurbujitaVer( int n, TStringGrid *v ) {
+  if ( n > 1 ) {
+    burbujitaVer( v, n );
+    OrdenBurbujitaVer( n - 1, v );
+  }
+}
+
+//------------------------------------------------------------------------------
+// 14)
+int posMayor( int v[], Word n ) {
+  int pos = 0;
+  if ( n == 1 )
+    return ( n );
+  else {
+    pos = posMayor( v, n - 1 );
+    if( v[ pos - 1 ] < v[ n - 1 ] )
+      pos = n;
+   }
+   return ( pos );
+}
+
+void selection( int v[], Word n ) {
+  if ( n > 1 ) {
+    int pos = posMayor( v, n );
+    int x = v[ pos - 1 ];
+    v[ pos - 1 ] = v[ n - 1 ];
+    v[ n - 1 ] = x;
+    selection( v, n - 1 );
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int v[] = { 8, 4, 2, 5, 6, 1, 3, 9 };
+  Word n = 8;
+  int t = posMayor( v, n );
+  ShowMessage( t );
+  selection( v, t );
+  for( int i = 0; i < n; i++ ) {
+    ShowMessage( v[ i ] );  // OK OK OK OK OK OK
+  }*/
+//------------------------------------------------------------------------------
+// 15)
+void Merge ( int v[], Word a, Word c, Word f ) {
+  int b[ 100 ], i, j;
+  if ( f > a ) {
+    c = ( a + f ) / 2 ;
+    for ( i = c + 1; i > a; i-- )
+      b[ i - 1 ] = v[ i - 1 ];
+      for ( j = c; j < f; j++ )
+	b[ f + c - j ] = v[ j + 1 ];
+	for ( int k = a; k <= f; k++ )
+	  if ( b[ i ] < b[ j ] )
+	    v[ k ] = b[ i++ ];
+	  else
+	    v[ k ] = b[ j-- ];
+  }
+}
+void MergeSort( int v[], Word a, Word b ) {
+  if ( b > a ) {
+    Word c = ( a + b ) / 2 ;
+    MergeSort( v, a, c );
+    MergeSort( v, c + 1, b );
+    Merge( v, a, c + 1, b );
+  }
+}
+//------------------------------------------------------------------------------
+// 17)
+void ordenCol( TStringGrid *A, int f, int c, int cont ) {
+  if ( ( A->ColCount*A->RowCount ) >= cont ) {  //25  20  15  10  5
+      A->Cells[ c ][ f ] = cont;               // 24  19  14   9  4
+      f--;                                    //  23  18  13   8  3
+      cont++;                                //   22  17  12   7  2
+      if ( f < 0 ) {                        //    21  16  11   6  1
+        c--;
+        f = A->RowCount - 1;
+      }
+    ordenCol( A, f, c, cont );
+  }
+}
+void ordenCol( TStringGrid *A ) {
+ ordenCol( A, A->RowCount - 1, A->ColCount - 1, 1 );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  ordenCol( Matrix );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 18)
+void matrixFila( TStringGrid *A, short m, short n, short f, short c );
+void matrixFila( TStringGrid *A, short m, short n ) {
+  matrixFila( A, m, n, m - 1, n - 1 );
+}
+void matrixFila( TStringGrid *A, short m, short n, short f, short c ) {
+  int k;
+  short fa,ca;
+  k = f * n + c + 1;                  //1  2  3  4  5
+  if ( k > 0 ) {                     // 6  7  8  9 10
+    if ( c == 0 ) {                 // 11 12 13 14 15
+      fa = f - 1;                  //  16 17 18 19 20
+      ca = n - 1;                 //   21 22 23 24 25
+    }
+    else {
+      ca = c - 1;
+      fa = f;
+    }
+    matrixFila( A, m, n, fa, ca );
+    A->Cells[ c ][ f ] = k;
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  matrixFila( Matrix, m, n );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 19)
+void matrixColumna( TStringGrid *A, short m, short n, short f, short c );
+void matrixColumna( TStringGrid *A, short m, short n ) {
+  matrixColumna( A, m, n, m - 1, n - 1 );
+}
+void matrixColumna( TStringGrid *A, short m, short n, short f, short c ) {
+  int k;
+  short fa,ca;                           //1   6  11  16  21
+  k = f * n + c + 1;                    // 2   7  12  17  22
+  if( k > 0 ) {                        //  3   8  13  18  23
+    if ( c == 0 ) {                   //   4   9  14  19  24
+      fa = f - 1;                    //    5  10  15  20  25
+      ca = n - 1;
+    }
+    else {
+      ca = c - 1;
+      fa = f;
+    }
+    matrixColumna( A, m, n, fa, ca );
+    A->Cells[ f ][ c ] = k;
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  matrixColumna( Matrix, m, n );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 21)
+void  triSupIzq( TStringGrid *A, int f, int c, int k ) {
+  if ( A->RowCount > f ) {
+    A->Cells[c][f] = k;
+    c++;
+    k++;
+    if ( c >= f ) {
+      f++;
+      c = 0;
+    }
+    triSupIzq(A,f,c,k);
+  }
+}
+void triSupIzq( TStringGrid *A ) {
+  triSupIzq( A, 1, 0, 1 ) ;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  triSupIzq(Matrix);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+void llenar8( TStringGrid *A, int f, int c, int k ) {
+  int n = A->ColCount*( A ->ColCount+1)/2 - k;
+  A->Cells[c][f] = k;
+  if ( n > 0 ) {
+    if ( f == 0 ) {
+      f = c + 1;
+      c = 0;
+    }
+    else {
+      f--;
+      c++;
+    }
+    llenar8(A,f,c,k+1);
+  }
+}
+
+// # 20)
+//Su Inversa
+void  llenar8_1( TStringGrid *A, int f, int c, int k ) {
+  if ( A->RowCount > f ) {
+    A->Cells[c][f] = k;
+    c++;
+    k++;
+    if ( c >= A->ColCount ) {
+      f++;
+      c = f;
+    }
+    llenar8_1(A,f,c,k);
+  }
+}
+void llenar8_1( TStringGrid *A ) {
+  llenar8_1( A, 0, 0, 1 ) ;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenar8_1(Matrix);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 22)
+void magicVer( TStringGrid *A, short m, short n, short f, short c, short k ) {
+  if( k == m * n ) {  //caso base
+    A->Cells[ c ][ f ] = k;               //17  24   1   8  15
+  }                                      // 23   5   7  14  16
+  else {                                //   4   6  13  20  22
+    A->Cells[ c ][ f ] = k;            //   10  12  19  21   3
+    if ( k % m == 0 )                 //    11  18  25   2   9
+      f++;
+    else {
+      f--;
+      c++;
+      if ( f == - 1 )
+        f = m - 1;
+        if ( c == n )
+          c = 0;
+    }
+    magicVer( A, m, n, f, c, k + 1 );
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO> //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  magicVer( Matrix, m, m, 0, m / 2, 1 );*/ // OK OK OK OK OK OK
+********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************
+
+///**************************************************************************///
+///******************************   MATRICES   ******************************///
+///**************************************************************************///
+
+const max = 20;
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void LlenarMatriz1( TStringGrid *A, short m, short n, short f, short c );
+void LlenarMatriz1( TStringGrid *A, short m, short n ) {
+  LlenarMatriz1( A, m, n, m - 1, n - 1 );
+}
+void LlenarMatriz1( TStringGrid *A, short m, short n, short f, short c ) {
+  int k;
+  short fa,ca;                      //1  2  3  4  5
+  k = f * n + c + 1;               // 6  7  8  9 10
+  if ( k > 0 ) {                  // 11 12 13 14 15
+    if ( c == 0 ) {              //  16 17 18 19 20
+      fa = f - 1;               //   21 22 23 24 25
+      ca = n - 1;
+    }
+    else {
+      ca = c - 1;
+      fa = f;
+    }
+    LlenarMatriz1( A, m, n, fa, ca );
+    A->Cells[ c ][ f ] = k;
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  LlenarMatriz1( Matrix, m, n );*/  //OK OK OK OK OK OK
+
+ //OTRA FORMA:
+void llenarMatrix1( TStringGrid *A, int m, int n, int f, int c, int k ) {
+  int z;
+  z = m * n - k;
+  if ( z == 0 )
+    A->Cells[ n - 1 ][ m - 1 ] = k;
+  else {
+    A->Cells[ c ][ f ] = k;
+    c++;
+    if ( c == n ) {
+      c = 0;
+      f++;
+    }
+    llenarMatrix1( A, m, n, f, c, k + 1 );
+  }
+}
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarMatrix2( TStringGrid *A, int f, int c, int k ) {
+  int n;
+  n = A->ColCount*A->RowCount-k;        //1  2  3  4  5
+  A->Cells[c][f] = k;                  //10  9  8  7  6
+  if ( n > 0 ) {                      // 11 12 13 14 15
+    if ( ( f % 2 ) == 0 ) {          //  20 19 18 17 16
+      c++;
+      if ( c == A->ColCount ) {
+        f++;
+        c = A->ColCount-1;
+      }
+    }
+    else {
+      c--;
+      if ( c == - 1 ) {
+        c = 0;
+        f++;
+      }
+    }
+    llenarMatrix2( A, f, c, k + 1 );
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarMatrix2(Matrix, 0, 0, 1 );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarMatrix3( TStringGrid *A, int f, int c, int k ) {
+  int n;
+  n = A->ColCount*A->RowCount-k;        //1 8  9 16
+  A->Cells[c][f] = k;                  // 2 7 10 15
+  if ( n > 0 ) {                      //  3 6 11 14
+    if ( ( c % 2 ) == 0 ) {          //   4 5 12 13
+      f++;
+      if ( f == A->ColCount ) {
+        c++;
+        f = A->ColCount-1;
+      }
+    }
+    else {
+      f--;
+      if ( f == - 1 ) {
+        f = 0;
+        c++;
+      }
+    }
+    llenarMatrix3( A, f, c, k + 1 );
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarMatrix3(Matrix, 0, 0, 1 );*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarMatrix4( TStringGrid *A, int f, int c, int k ) {
+  int n;
+  n = A->ColCount*(A->ColCount+1)/2-k;  //1  3  6 10 15
+  A->Cells[c][f] = k;                  // 2  5  9 14
+  if ( n > 0 ) {                      //  4  8 13
+    if ( f == 0 ) {                  //   7 12
+      f = c + 1;                    //   11
+      c = 0;
+    }
+    else {
+      f--;
+      c++;
+    }
+    llenarMatrix4(A,f,c,k+1);
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarMatrix4(Matrix, 0, 0, 1 );*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarMatrix5( TStringGrid *A, int f, int c, int k ) {
+  int n;
+  if ( f < A->RowCount ) {         //1 2 3 4
+    A->Cells[ c ][ f ] = k;       // 2 3 4
+    if ( f == 0 ) {              //  3 4
+      f = c + 1;                //   4
+      c = 0;
+      k++;
+    }
+  }                   ///// OOOOOOOOOOOOOOOOOOJJJJJJJJJJJJJJJOOOOOOOOOOOOO /////
+  else {
+    f--;
+    c++;
+  }
+  llenarMatrix5(A,f,c,k);
+}
+
+void llenarMatrix5(TStringGrid *A,short m,short n) {
+  llenarMatrix5(A,0,0,1);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarMatrix5(Matrix, 0, 0, 1 );*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarMatrix6( TStringGrid *A, int f, int c, int k ) {
+  if ( k >= 0 ) {
+    A->Cells[ c ][ f ] = k;
+    if ( c % 2 == 0 ) {     //SUPUESTAMENTE HACE ESTA MATRIZ PERO LLAMAR BIEN
+      f--;
+      k--;                               // 13 12 5 4
+      if ( f == - 1 ) {                  // 14 11 6 3
+        f = 0;                           // 15 10 7 2
+        c++;                             // 16  9 8 1
+      }
+    }
+    else {
+      f++;
+      k--;
+      if ( f == A->ColCount ) {
+        f = A->ColCount - 1;
+        c++;
+      }
+    }
+    llenarMatrix6( A, f, c, k );
+  }
+}
+//llenarMatrix6( Matrix, Matrix->RowCount-1, 0, Matrix->ColCount*Matrix->RowCount);
+
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarMatrix6( Matrix, m-1, 0, n*m- 1 )*/
+
+
+void llenMat6( TStringGrid *A, int f, int c, int k ) {
+  if ( k >= 0 ) {
+    A->Cells[ f ][ c ] = k;
+    if ( c % 2 == 0 ) {
+      f--;
+      k--;
+      if ( f == - 1 ) {
+        f = 0;
+        c++;
+      }
+    }
+    else {
+      f++;
+      k--;
+      if ( f == A->ColCount ) {
+        f = A->ColCount - 1;
+        c++;
+      }
+    }
+    llenMat6( A, f, c, k );
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenMat6( Matrix, m-1, 0, n*m- 1 )*/
+
+
+void Vivora(TStringGrid *A,short m,short n,short &f,short &c,short &k) {  
+   int p=m*n-k+1;              // 13 12 5 4   ok ok ok ok ok ok
+  if(p>0)                      // 14 11 6 3
+   { A->Cells[c][f]=k;         // 15 10 7 2
+     if(n%2==0)                // 16  9 8 1
+     {  if(c%2!=0)
+        {
+           f--;
+           if(f<0)
+            {c--; f++;}
+        }
+        else
+        {   f++;
+           if(f==m)
+           { c--; f--;}
+        }
+     }
+     else
+     {  if(c%2==0)
+        {
+          f--;
+           if(f<0)
+           { c--; f++;}
+        }
+        else
+        {  f++;
+           if(f==m)
+            { c--; f--;}
+        }
+     }
+    Vivora(A,m,n,f,c,k+1);
+   }
+}
+void Vivora(TStringGrid *A,short m,short n)
+{  short a=1;
+    Vivora(A,m,n,m-1,n-1,a);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m=StrToInt(InputBox("","",""));
+  int n=StrToInt(InputBox("","",""));
+  Matrix->ColCount=n;
+  Matrix->RowCount=m;
+  Vivora(Matrix,m,n);*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void Ord(TStringGrid *A,short m,short n, short &f,short &c,short &f1,short &c1) {
+   int k=c*m+f+1;  int j=c1*m+f1+1;  //ORDENAR UNA MATRIZ POR COLUMNA
+   if(k>1) {
+     if(j>0) {
+       if(StrToInt(A->Cells[c][f])<StrToInt(A->Cells[c1][f1])) {
+         String aux=A->Cells[c][f];
+         A->Cells[c][f]=A->Cells[c1][f1];
+         A->Cells[c1][f1]=aux;
+       }
+       if(f1==0)
+         {f1=m-1; c1--;}
+       else
+          f1--;
+      Ord(A,m,n,f,c,f1,c1);
+      }
+   else
+    {if(f==0)
+       {  f=m-1;
+         c--;
+       }
+     else
+         f--;
+     if(f==0)
+       {f1=m-1; c1=c-1;}
+     else
+       { f1=f-1;c1=c; }
+      Ord(A,m,n,f,c,f1,c1);
+    }
+   }
+}
+void Ord(TStringGrid *A,short m,short n) {
+  Ord(A,m,n,m-1,n-1,m-2,n-1);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m=Matrix->ColCount;
+  int n=Matrix->RowCount;
+  Ord(M,m,n);*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void LlenarDesdeAvajo(TStringGrid *A,short m,short n,short f,short c,short k) {
+  int p=m*n-k+1;
+  if(p>0) {                    //4 5 12 13
+    A->Cells[c][f]=k;         // 3 6 11 14
+    if(c%2==0) {             //  2 7 10 15
+      f--;                  //   1 8  9 16
+      if(f<0) {
+        f++;
+        c++;
+      }
+    }
+    else {
+      f++;
+      if(f==m) {
+        f--;
+        c++;
+      }
+    }
+    LlenarDesdeAvajo(A,m,n,f,c,k+1);
+  }
+}
+void LlenarDesdeAvajo(TStringGrid *A,short m,short n) {
+  LlenarDesdeAvajo(A,m,n,m-1,0,1);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m=StrToInt(InputBox("","",""));
+  int n=StrToInt(InputBox("","",""));
+  M->ColCount=n;
+  m->RowCount=m;
+  LlenarDesdeAvajo(M,m,n);*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void CargarTri(TStringGrid *A,short m,short n,short &f,short &c) {
+  if(f<m)
+  {  A->Cells[c][f]=m*f+c+1;          //1  2 3 4
+     if(c==(m-f-1))                  // 5  6 7
+     {  c=0; f++;                   //  9 10
+     }                             //  13
+     else
+       c++;
+     CargarTri(A,m,n,f,c);
+  }
+}
+void CargarTri(TStringGrid *A,Word n) {
+  int a=0,b=0;
+  CargarTri(A,n,n,a,b);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  CargarTri( Matrix, n );*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void LlenarMatriz2( TStringGrid *A, short m, short n, short f, short c );
+void LlenarMatriz2( TStringGrid *A, short m, short n ) {
+LlenarMatriz2( A, m, n, m - 1, n - 1 );
+}
+void LlenarMatriz2( TStringGrid *A, short m, short n, short f, short c ) {
+  int k;                             //1  6 11 16 21
+  short fa,ca;                      // 2  7 12 17 22
+  k = f * n + c + 1;               //  3  8 13 18 23
+  if( k > 0 ) {                   //   4  9 14 19 24
+    if ( c == 0 ) {              //    5 10 15 20 25
+      fa = f - 1;
+      ca = n - 1;
+    }
+    else {
+      ca = c - 1;
+      fa = f;
+    }
+    LlenarMatriz2( A, m, n, fa, ca );
+    A->Cells[ f ][ c ] = k;
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  LlenarMatriz2( Matrix, m, n );*/  // OK OK OK OK OK OK 
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void Magico( TStringGrid *A, short m, short n, short f, short c, short k ) {
+  if( k == m * n ) {  //caso base
+    A->Cells[ c ][ f ] = k;      //17 24  1  8 15
+  }                             // 23  5  7 14 16
+  else {                       //   4  6 13 20 22
+    A->Cells[ c ][ f ] = k;   //   10 12 19 21  3
+    if ( k % m == 0 )        //    11 18 25  2  9
+      f++;
+    else {
+      f--;
+      c++;
+      if ( f == - 1 )
+        f = m - 1;
+        if ( c == n )
+          c = 0;
+    }
+    Magico( A, m, n, f, c, k + 1 );
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  Magico( Matrix, m, m, 0, m / 2, 1 );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void magico( TStringGrid *A, int f, int c, int &m, int &n, int a);
+void magico( TStringGrid *A,int f,int c, int ){
+     int x,y;
+     magico( A, f, c, x, y, f*c );
+}
+void magico( TStringGrid *A, int f, int c, int &m, int &n, int a) {
+  if(a>1) {
+     magico(A,f,c,m,n,a-1);      //15 16 22  3  9
+      if(((a-1)%f)==0)          //  8 14 20 21  2
+            m++;               //   1  7 13 19 25
+      else {                  //   24  5  6 12 18
+        if(m==0)             //    17 23  4 10 11
+          m=f-1;
+        else
+          m--;
+          if(n==0)
+            n=f-1;
+          else
+            n--;
+       }
+       A->Cells[ m ][ n ] = a;
+   }
+   else {
+     m=0;
+     n=f/2;
+     A->Cells[ m ][ n ] = 1;
+   }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  Matrix->ColCount = m;
+  Matrix->RowCount = m;
+  magico( Matrix, m, m, 0 );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void magico21( TStringGrid *A , int f, int c, int &m, int&n, int a );
+void magico21( TStringGrid *A ,int f,int c, int ){
+  int x,y;
+  magico21(A,f,c,x,y,f*c);
+}
+void magico21( TStringGrid *A ,int f,int c,int &m,int&n,int a) {
+  if(a>1) {
+      magico21(A,f,c,m,n,a-1);      //17 23  4 10 11
+      if((a-1)%f==0)               // 24  5  6 12 18
+         m++;                     //   1  7 13 19 25
+      else {                     //    8 14 20 21  2
+         if(m==0)               //    15 16 22  3  9
+            m=f-1;
+         else
+            m--;
+         if(n==f-1)
+            n=0;
+         else
+            n++;
+      }
+      A->Cells[ m ][ n ] = a;
+   }
+   else {
+     m=0;
+     n=f/2;
+     A->Cells[ m ][ n ] = 1;
+   }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  Matrix->ColCount = m;
+  Matrix->RowCount = m;
+  magico21(Matrix,m,m,1);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenar_1( TStringGrid *A , int fila, int col ) {
+    if(fila>0) {                                  //1 2 3 4 5
+       llenar_1(A,fila-1,col);                   // 2 3 4 5
+        for (int j=0;j<fila ;j++) {             //  3 4 5
+          A->Cells[ fila - j - 1 ][ j ] = fila;//   4 5
+        }                                     //    5
+    }
+}
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenar_1(Matrix,m,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+void llenar_2( TStringGrid *A, int fila, int col ) {
+    if(fila>0) {                                //1 2 3 4 5
+        llenar_2(A,fila-1,col);                // 2 2 3 4 5
+        for (int j=0;j<fila ;j++) {           //  3 3 3 4 5
+          A->Cells[ j ][ fila - 1 ] = fila;  //   4 4 4 4 5
+          A->Cells[ fila - 1 ][ j ] = fila; //    5 5 5 5 5
+        }
+    }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenar_2(Matrix,m,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenar_3(TStringGrid *M,int n,int m) {
+   if (n > 0) {                                //4 4 4 4
+     llenar_3(M,n-1,m);                       // 4 3 3 3
+     for (int j = 0; j < n; j++ ) {          //  4 3 2 2
+       M->Cells[j][n - 1]= IntToStr(m - j); //   4 3 2 1
+       M->Cells[n - 1][j]= IntToStr(m - j);
+     }
+   }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenar_3(Matrix,m,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+void llenar_4(TStringGrid *M,int n,int m) {    //1 2 3 4 5
+  if (n > 0)				               // 2 1 2 3 4
+    llenar_4(M,n-1, m);			     //	 3 2 1 2 3
+    for (int j = 0; j < n; j++ ) { 	    //	 4 3 2 1 2
+      M->Cells[j][n - 1]= IntToStr(n - j); //    5 4 3 2 1
+      M->Cells[n - 1][j]= IntToStr(n - j);
+    }
+}
+void llenar_4(TStringGrid *M,int n) {
+  llenar_4(M,n,3);
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenar_4(Matrix,m,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenar_5(TStringGrid *M,int n) {	     //1 2 3 4 5
+  if (n > 0)    			    // 2 3 4 5 6
+  llenar_5(M,n-1);        		   //  3 4 5 6 7
+  for (int j = 0; j < n; j++ ) {       	  //   4 5 6 7 8
+    M->Cells[j][n - 1]= IntToStr(n + j); //    5 6 7 8 9
+    M->Cells[n - 1][j]= IntToStr(n + j);
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  llenar_5(Matrix,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenar_6(TStringGrid *M,int n) {	         //1 2 3 4 5
+  if (n > 0)    			        // 2 3 4 5
+  llenar_6(M,n-1);        		       //  3 4 5
+  for (int i = 0; i < n; i++ ) {       	      //   4 5
+    M->Cells[i][n - 1 - i ] = IntToStr( n ); //    5
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  llenar_6(Matrix,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenar_7(TStringGrid *M,int n) {	         //1 2 3 4
+  if (n > 0)    			        // 2 3 4 5
+  llenar_7(M,n-1);        		       //  3 4 5 6
+  for (int j = 0; j < n; j++ ) {       	      //   4 5 6 7
+    M->Cells[j][n - 1] = IntToStr( n + j );
+    M->Cells[n - 1][j] = IntToStr( n + j );
+  }
+}
+// <SU LLAMADA ES DE LA SGTE. MANERA: >  //
+/*int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  llenar_7(Matrix,n);*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+/*void revesColumna( TStringGrid *A, short m, short n, short &f, short &c, short dato ) {
+  if ( dato > 1 ) {
+    revesColumna(A,m,n,f,c,dato-1);
+    if ( f == m -1) {
+      c++;
+      f = 0;
+    }        //NO SE COMO SE LO LLAMA A LA FUNCIÓ YA QUE ME APARECE CON POCOS PARÁMETROS
+    else {
+      f++;
+    }
+    A->Cells[f][c]=dato;
+  }
+  else {
+    f = 0;
+    c = 0;
+    A->Cells[ f ][ c ] = dato;
+  }
+}*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+/*void inversa( TStringGrid *A, short m, short n, short &f, short &c, short a );
+void inversa( TStringGrid *A, short m, short n ) {
+  inversa( A, m, n, m - 1, n - 1 );
+}
+
+void inversa( TStringGrid *A, short m, short n, short &f, short &c, short a ) {
+  if ( a > 1 ) {
+    inversa(A,m,n,f,c,a-1);
+    if ( f > 0 )
+      f--;
+    else {
+      f = m -1;
+      c++;
+    }  //NO SE COMO SE LO LLAMA A LA FUNCIÓ YA QUE ME APARECE CON POCOS PARÁMETROS
+    A->Cells[f][c]=a;
+  }
+  else {
+    f = m - 1;
+    c = 0;
+    A->Cells[f][c]=1;
+  }
+}*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// DEVUELVE TRUE SI LA MATRIZ M*N  ESTÁ ORDENADA
+bool estaOrden(  TStringGrid *A, int m, int n ) {
+  bool bb;
+  if ( m == 0 )
+    bb = true;
+  else {
+    bb = estaOrden(A,m-1,n);
+    if ( bb ) {
+      bb = estaOrden(A,m-1,n);
+      if ( bb )
+        bb = A->Cells[ m - 2 ][ n - 1 ] < A->Cells[ m - 1 ][ 0 ];
+    }
+  }
+  return ( bb );
+}
+
+bool estaOrdenada(  TStringGrid *A, int m, int n, int f, int c ) {
+  bool bb;
+  int ne,c2,f2;
+  ne = f * n + c + 1;
+  if ( ne < 2 )
+    bb = true;
+  else {
+    if ( c == 0 ) {
+      c2 = n - 1;
+      f2 = f - 1;
+    }
+    else {
+      f2 = f;
+      c2 = c - 1;
+      bb = estaOrdenada(A,m,n,f2,c2);
+      if ( bb )
+        bb = A->Cells[ f2 ][ c2 ] < A->Cells[ f ][ c ];
+    }
+  }
+  return ( bb );
+}
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+/*void Magico1( TStringGrid *A, short m, short n, short f, short c ) {
+  if( n == 1 ) {  //caso base
+    f = 2;
+    c = (A->ColCount+1)/2-1;
+    A->Cells[ c ][ f ] = n;
+  }
+  else {                        ESTA MALLLLLLLLLLLLLLLLLL SALE OVERFLOW
+    Magico1( A, m, n-1, f, c);
+    if ( ( n-1 ) % m == 0 )
+      f++;
+    else {
+      if ( f == 0 )
+        f = m - 1;
+      else
+        f--;
+        if ( c == ( m-1) )
+          c = 0;
+        else
+          c++;
+    }
+    A->Cells[ f ][ c ] = n;
+  }
+}*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+/*void Magic( TStringGrid *A, short n, short f, short c ) {
+  if ( n == 1 ){
+    f = 0;
+    c = (A->ColCount+1)/2-1;
+    A->Cells[ c ][ f ] = n;
+  }
+  else {                        //ESTA MALLLLLLLLLLLLLLLLLL SALE SATCK OVERFLOW
+    Magic( A, n-1, f, c);
+    if ( ( n-1 ) % n == 0 )
+      if ( f == 0 )
+        f = A->ColCount-1;
+      else
+        f--;
+  }
+  A->Cells[ c ][ f ] = n;
+}*/
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void llenarReves( TStringGrid *A, int m , int n , int f , int c) {
+    int ne;
+    ne = ( n * m ) - ( n * f ) - c;
+    if ( ne <= ( n * m ) ) {
+      A->Cells[ c ] [ f ] = IntToStr( ne );
+      if ( c == 0 ) {
+        f--;
+        c = n - 1;
+      }
+      else {
+        c--;
+      }
+      llenarReves( A , m ,n, f, c );
+    }
+}
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+void magico2( TStringGrid *A, int m  , int &f , int &c, int dato) {
+  if (dato > 1) {
+    magico2(A,m,f,c,dato-1);
+    if ( ((dato-1)% m) == 0)
+      f++;
+    else {
+      if ( f==0 )
+        f = m-1;
+      else
+        f--;
+        if ( c==0 )
+          c = m-1;
+        else
+          c--;
+    }
+    A->Cells[c][f]= IntToStr(dato);
+  }
+  else {
+    f = 0;
+    c = m / 2;
+    A->Cells[c][f]= IntToStr(dato);
+  }
+}
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+int limiteM( int x ) {
+  int r = 0;
+  for ( int i = 0; i < x ; i++ ) {
+      r = r + ( x - i);
+  }
+  return r;
+}
+
+/*********modoto del llenadon sespiral***************/
+
+void matriztri( TStringGrid *A, int m, int &f, int &c, int dato) {
+   if ( dato == 1 ) {
+     A->Cells[ c ][ f ] = IntToStr(dato);
+   }
+   else {
+     A->Cells[c][f]= IntToStr(dato);
+     if ( c == 0 ) {
+        c = f-1;
+        f = 0;
+     }
+     else {
+          c--;
+          f++;
+     }
+     matriztri( A, m, f, c, dato-1 );
+   }
+}
+/********************* Proceso Principal********************************/
+void espiral( TStringGrid *A, int m, int &f, int &c, int dato) {
+  int lim = limiteM( m );
+  if ( dato > lim ) {
+    A->Cells[c][f]= IntToStr(dato);
+    if ( f == m-1 ) {
+      f = c-1;
+      c++;
+    }
+    else {
+      f++;
+      c--;
+    }
+    if ( c == m )
+      c--;
+    if ( f == 1 )
+      c = m-1;
+      espiral( A, m, f, c, dato-1 );
+  }
+  else {
+    c = m - 1;
+    dato = dato + 1;
+    matriztri( A , m , f , c , dato - 1 );
+  }
+}
+
+
+
+
+///**************************************************************************///
+///*******************************   CADENAS   ******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+// 1) PROGRAMA QUE VERIFICA SI ES CONSONANTE
+bool esConsonante( char x ) {
+  bool sw = false;
+  if ( ( x == 'b' ) || ( x == 'c' ) || ( x == 'd' ) || ( x == 'f' ) ||
+       ( x == 'g' ) || ( x == 'h' ) || ( x == 'j' ) || ( x == 'k' ) ||
+       ( x == 'l' ) || ( x == 'm' ) || ( x == 'n' ) || ( x == 'p' ) ||
+       ( x == 'q' ) || ( x == 'r' ) || ( x == 's' ) || ( x == 't' ) ||
+       ( x == 'v' ) || ( x == 'w' ) || ( x == 'x' ) || ( x == 'y' ) ||
+       ( x == 'z' ) )
+       sw = true;
+  return ( sw );
+}
+//------------------------------------------------------------------------------
+// 2) PROGRAMA QUE VERIFICA SI ES VOCAL
+bool esVocal( char x ) {
+  bool sw = false ;
+  if ( ( x == 'a' ) || ( x == 'e' ) || ( x == 'i' ) || ( x == 'o' ) ||
+       ( x == 'u' ) || ( x == 'A' ) || ( x == 'E' ) || ( x == 'I' ) ||
+       ( x == 'O' ) || ( x == 'U' ) )
+       sw = true;
+  return ( sw );
+}
+//------------------------------------------------------------------------------
+// 3) PROGRAMA QUE ELIMINA LAS VOCALES DE UNA CADENA
+void ElimVoc( String &s ) {
+int n = s.Length( );
+  char ch;
+  if( n > 0 ) {
+    ch = s[ n ];
+    s.Delete( n, 1 );
+    ElimVoc( s );
+    if( !esVocal( ch ) )
+      s += ch;
+  }
+}
+//------------------------------------------------------------------------------
+// 4) PROGRAMA QUE INVIERTE UNA CADENA
+String invertirCad( String &s ) {
+  int n = s.Length();
+  if( n > 0 ) {
+    char x = s[ n ];
+    s.Delete( n, 1 );
+    invertirCad( s );
+    s.Insert( x, 1 );
+  }
+  return ( s );
+}
+//------------------------------------------------------------------------------
+// 5) PROGRAMA QUE CUENTA LA CANTIDAD DE PALABRAS DE UNA CADENA
+int contarPal( String &s ) {
+  int n, c;
+  s = s.Trim( );
+  n = s.Length( );
+  s = s + ' ';
+  if ( n == 0 )
+    c = 0;
+  else {
+    int pos = s.Pos( ' ' );
+    s.Delete( 1, pos );
+    c = contarPal( s );
+    c++;
+  }
+  return ( c );
+}
+
+int contPalabras( String s ) {
+  int c, n;
+  char x;
+  n = s.Length( );
+  if ( n == 0 ) //Primer Caso Base
+    c = 0;
+  else
+    if ( n == 1 ) { //Segundo Caso Base
+      if ( s[ 1 ] == ' ' )
+        c = 0;
+      else
+        c = 1;
+    }
+    else {
+      x = s[ n ];
+      s.SetLength( n - 1 );
+      c = contPalabras( s );
+      if ( ( x != ' ' ) && ( s[ n - 1 ] == ' ' ) )
+        c++;
+    }
+    return ( c );
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+    /*String s = EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    int x = contPalabras( s );  //CONTAR LA CANTIDAD DE PALABRAS QUE TENGAN LA LETRA 'A'
+    EditMostrar->Text = EditMostrar->Text + ( x );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 6) PROGRAMA QUE SEPARA LAS VOCALES Y CONSONANTES DE UNA CADENA
+void separaVocCon( String s, String &s1, String &s2 ) {
+  int n = s.Length( );
+  char ch;
+  s.Trim( );
+  if ( n > 0 ) {
+    ch = s[ n ];
+    s.Delete( n, 1 );
+    separaVocCon( s, s1, s2 );
+    if ( esVocal( ch ) ) {
+      s1 += ch;
+    }
+    else
+      if ( ch != ' ' ) {
+        s2 += ch;
+      }
+  }
+}
+//------------------------------------------------------------------------------
+// 7) PROGRAMA QUE CUENTA LAS VOCALES QUE ESTÁN DELANTE DE UNA CONSONANTE
+int contVocCon( String s ) {
+  int n = s.Length( );
+  int c = 0;
+  if ( n < 2 )
+    c = 0;
+  else {
+    char x = s[ n ];
+    s.Delete( n, 1 );
+    c = contVocCon( s );
+    if ( ( esVocal( s[ n - 1 ] ) ) && ( esConsonante( x ) ) )
+      c++;
+  }
+  return ( c );
+}
+//------------------------------------------------------------------------------
+// 8) PROGRAMA QUE CUENTA LA CANTIDAD DE VOCALES DE UNA CADENA
+int contVocales( String s ) {
+  int a = 0;
+  int n = s.Length( );
+  if ( n > 0 ) {
+    char ch = s[ n ];
+    s.Delete( n, 1 );
+    a = contVocales( s );
+    if ( esVocal( ch ) )
+      a++;
+  }
+  return ( a );
+}
+
+int cantidadVocales( String s ) {
+  int c, n;
+  char x;
+  n = s.Length( );
+  if ( n == 0 )
+    c = 0;
+  else {
+    x = s[ n ];
+    s.SetLength( n - 1 );
+    c = cantidadVocales( s );
+    if ( esVocal( x ) )
+      c++;
+  }
+  return ( c );
+}
+//------------------------------------------------------------------------------
+// 9) PROGRAMA QUE ELIMINA LOS ESPACIOS DE UNA CADENA
+void ElimEsp( String &s ) {
+  int n = s.Length( );
+  String x = ' ';
+  if ( n > 0 ) {
+    x = s[ n ];
+    s.Delete( n, 1 );
+    ElimEsp( s );
+    if ( x != ' ' )
+      s = s + x;
+  }
+}
+//------------------------------------------------------------------------------
+// 10) PROGRAMA QUE ELIMINA UN CARACTER DE UNA CADENA
+void ElimCar( String &s, char c ) {
+  int n = s.Length( );
+  char x = ' ';
+  if ( n > 0 ) {
+    x = s[ n ];
+    s.Delete( n, 1 );
+    ElimCar( s, c );
+    if ( x != c )
+      s = s + x;
+  }
+}
+//------------------------------------------------------------------------------
+// 11) PROGRAMA QUE MUESTRA LA PALABRA LARGA DE UNA CADENA
+String palExt( String &s ) {
+  int n;
+  String b, c;
+  s = s.Trim( );
+  n = s.Length( );
+  s = s + ' ';
+  if ( n == 0 ) {
+    return ( "" );
+  }
+  else {
+    int pos = s.Pos( ' ' );
+    c = s.SubString( 1, pos - 1 );
+    s.Delete( 1, pos );
+    b = palExt( s );
+    if ( c.Length( ) >= b.Length( ) )
+      b = c;
+  }
+  return ( b );
+}
+//------------------------------------------------------------------------------
+// 12) PROGRAMA QUE CUENTA CANTIDAD DE PALABRAS QUE TENGA LA LETRA 'A'
+int contarPalabras( String &s ) {
+  int n, c;
+  String s1;
+  s = s.Trim( );
+  n = s.Length( );
+  s = s + ' ';
+  if ( n == 0 )
+    return ( 0 );
+  else {
+    int pos = s.Pos( ' ' );
+    s1 = s.SubString( 1, pos - 1 );
+    s.Delete( 1, pos );
+    c = contarPalabras( s );
+    n = s1.Length( );
+    int i = 1;
+    bool sw = false;
+    while ( ( i <= n ) && ( sw == false ) ) {
+      if ( s1[ i ] == 'a' ) {
+        sw = true;
+        c++;
+      }
+      i++;
+    }
+  }
+  return ( c );
+}
+//------------------------------------------------------------------------------
+// 13) PROGRAMA QUE MUESTRA SI SE ENCUENTRA LA LETRA 'A' EN LA CADENA
+bool esta( String &s ) {
+  int n = s.Length( );
+  bool sw;
+  if ( n == 0 ) {
+    sw = false;
+  }
+  else {
+    int x = s[ n ];
+    s.Delete( n, 1 );
+    sw = esta( s );
+    if ( x == 'a' )
+      sw = true;
+  }
+  return ( sw );
+}
+//------------------------------------------------------------------------------
+// 14) PROCEDIMIENTO QUE ELIMINA LAS VOCALES DE UNA CADENA
+void elimVocales( String &s ) {
+  int n;
+  char x;
+  String vocal = "aeiouAEIOUáéíóúàèìòùäëïöüâêîôû";
+  n = s.Length( );
+  if ( n > 0 ) {
+    x = s[ n ];
+    s.SetLength( n - 1 );
+    elimVocales( s );
+    if ( vocal.Pos( x ) == 0 )
+      s = s + x;
+  }
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+/*String s=EditMostrar->Text;
+  s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+  elimVocales( s );  //ELIMINAR LAS VOCALES DE UNA CADENA
+  EditMostrar->Text = EditMostrar->Text+( s );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 15) FUNCIÓN QUE MUESTRA LA CANTIDAD DE PALABRAS QUE TENGAN AL MENOS UNA LETRA 'A'
+void contPar( String s, int &c, bool hay ) {
+  int n;
+  char x;
+  n = s.Length( );
+  if ( n == 0 ) {
+    c = 0;
+    hay = false;
+  }
+  else {
+    x = s[ n ];
+    s.SetLength( n - 1 );
+    contPar( s, c, hay );
+    if ( ( x == 'a' || x == 'A') && ( !hay ) ) {
+      c++;
+      hay = true;
+    }
+    else
+      if ( x == ' ' ) {
+        hay = false;
+      }
+  }
+}
+/*int contarPalA( String s ) {
+  int c;
+  bool sw;
+  contarPalA( s,c,sw );   // OOOOOOOOOOOOOOOOJJJJJJJJJJJJJJJJJJJJJJOOOOOOOOOO
+  return ( c );
+} */
+//------------------------------------------------------------------------------
+bool Palin(String s,int a,int b)
+{   int n=(b-a+1)/2;  bool f;  Char x,y;
+  if(n==0)
+    f=true;
+  else
+  {    x=s[a]; y=s[b];
+       if(Palin(s,a+1,b-1)&&x==y)
+          f=true;
+       else
+         f=false;
+
+  }return f;
+}
+bool Palin(String s)
+{ int a,b;  bool f;
+  b=s.Length();
+  if(Palin(s,1,b))
+      f=true;
+  else
+      f=false;
+  return f;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+  /*String cad=InputBox("",""," ");
+  if(Palin(cad))
+     ShowMessage("Es Palindrome");
+  else
+     ShowMessage("No es Palindrome");*/
+//------------------------------------------------------------------------------
+bool EstalaVoc(String s)
+{ bool b; char p; String voc="aeiouAEIOU";
+   int n=s.Length();
+   if(n==0)
+       b=false;
+   else
+   {  p=s[n];
+      s=s.SetLength(n-1);
+      if(voc.Pos(p)>0)
+         b=true;
+      else
+         b=EstalaVoc(s);
+   }
+   return b;
+}
+int ContarPal(String s)  // CONTAR LAS PALABRAS SIN VOCALES
+{ int c; int n=s.Length();
+  if(n==0)
+      c=0;
+  else
+    {  char p=s.Pos(' ');
+       if(p==0)
+          p=n;
+       String aux=s.SubString(1,p);
+       s=s.SubString(p+1,n-p);
+       c=ContarPal(s);
+       if(!EstalaVoc(aux))
+         c++;
+    }
+    return c;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+   /*String s=InputBox("","","");
+   ShowMessage("Las Palabras sin vocal son: "+IntToStr(ContarPal(s)));*/
+//------------------------------------------------------------------------------
+// ESTÁ LA LETRA 'A'
+bool estaVoc(String s)
+{ int n; char p; bool b;
+   n=s.Length();
+  if(n==0)
+      b=false;
+  else
+    { p=s[n];
+      s.SetLength(n-1);
+      if(estaVoc(s)||p=='a')
+         b=true;
+      else
+         b=false;
+    }return b;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+ /*String cad=Edit1->Text;
+  if(estaVoc(cad))
+      ShowMessage("Esta");
+  else
+      ShowMessage("No esta");*/
+//------------------------------------------------------------------------------
+// CONTAR LAS PALABRAS QUE TENGAN LA LETRA 'A'
+int ContarPalconVoc(String s)
+{ int c,n; char p;
+  n=s.Length();
+  if(n==0)
+      c=0;
+  else
+   { if(n==1)
+      { if(s[1]=='a')
+          c=1;
+        else
+           c=0;
+      }
+      else
+      { int a=s.Pos(' ');
+        if(a==0)
+            a=n;
+        String cad=s.SubString(1,a-1);
+        s=s.SubString(a+1,n-a);
+        c=ContarPalconVoc(s);
+        if(estaVoc(cad))
+          c++;
+      }
+   }
+   return c;
+}
+// < AQUÍ ESTÁ SU LLAMADA AL MÉTODO > //
+  //ShowMessage(IntToStr(ContarPalconVoc(Edit1->Text)));
+
+
+
+
+
+
+///**************************************************************************///
+///************ DESDE AQUÍ EMPIEZO A LLAMAR A TODAS MIS FUNCIONES ***********///
+
+///********** POR AQUÍ ACCEDO DIRECTO A LAS FUNCIONES DESDE EL MENÚ *********///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Fibonacci1Click(TObject *Sender) {
+  short a;
+  a = StrToInt( InputBox( "* SERIE FIBONACCI", "* INGRESE UN NÚMERO: ", "0" ) );
+  EditMostrar->Text = Fibo( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Ascendentes1Click(TObject *Sender) {
+  byte a;
+  a = StrToInt( InputBox( "* PRIMEROS N NÚMEROS NATURALES", "* INGRESE UN NÚMERO: ", "0" ) );
+  Mostrar( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Descendentes1Click(TObject *Sender) {
+  byte a;
+  a = StrToInt( InputBox( "* PRIMEROS N NÚMEROS NATURALES", "* INGRESE UN NÚMERO: ", "0" ) );
+  Mostrar1( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Pares1Click(TObject *Sender) {
+  byte a;
+  a = StrToInt( InputBox( "* PRIMEROS N NÚMEROS PARES", "* INGRESE UN NÚMERO: ", "0" ) );
+  MostrarPares( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Impares1Click(TObject *Sender) {
+  byte a;
+  a = StrToInt( InputBox( "* PRIMEROS N NÚMEROS IMPARES", "* INGRESE UN NÚMERO: ", "0" ) );
+  MostrarImpares( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Digitos1Click(TObject *Sender) {
+  int a;
+  a = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS DE UN NÚMERO", "* INGRESE UN NÚMERO: ", "0" ) );
+  ( *EditMostrar ).Text = SumaDigitos( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::DigitoPares1Click(TObject *Sender) {
+  Cardinal a;
+  a = StrToInt( InputBox( "* ELIMINAR DÍGITOS PARES DE UN NÚMERO", "* INGRESE UN NÚMERO: ", "0" ) );
+  EliminarPares( a );
+  ShowMessage( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Pares2Click(TObject *Sender) {
+  int a;
+  a = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS PARES DE UN NÚMERO", "* INGRESE UN NÚMERO: ", "0" ) );
+  ( *EditMostrar ).Text = SumaDigitosPares( a );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::ParesImpares1nro1Click(TObject *Sender) {
+  Cardinal x,p,i;
+  x = StrToInt( InputBox( "* SEPARAR DÍGITOS PARES-IMPARES DE UN NÚMERO", "* INGRESE UN NÚMERO: ", "0" ) );
+  Sep_Imp_Par( p, i, x );
+  ShowMessage( " [ " +IntToStr( p ) +'|'+ IntToStr( i ) + " ] " );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::BtnSepararClick(TObject *Sender) {
+  Cardinal x, y, z;
+  EditMostrar->Clear( );
+  x = StrToInt( InputBox( "* SEPARAR PAR - IMPAR", "* INGRESE UN NÚMERO: ", "0" ) );
+  y = StrToInt( InputBox( "* SEPARAR PAR - IMPAR", "* INGRESE OTRO NÚMERO: ", "0" ) );
+  Edit1->Text = x;
+  Edit2->Text = y;
+  juntar( x, y, z );
+  if ( z <= 999999999 ) {
+    EditMostrar->Text = z;
+    Sep_Imp_Par( x, y, z );
+  }
+  Edit1->Text = x;
+  Edit2->Text = y;
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::BurbujaClick(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* ORDENAR UN VECTOR POR BURBUJA", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* ORDENAR UN VECTOR POR BURBUJA", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  OrdenarBurbu( n, v );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Juntar2Nro1Click(TObject *Sender) {
+  Cardinal x, y, z;
+  EditMostrar->Clear( );
+  x=StrToInt( InputBox( "* JUNTAR LOS DÍGITOS DE DOS NÚMEROS", " * INGRESE UN NÚMERO: ", "0" ) );
+  y=StrToInt( InputBox( "* JUNTAR LOS DÍGITOS DE DOS NÚMEROS", " * INGRESE OTRO NÚMERO: ", "0" ) );
+  Edit1->Text = x;
+  Edit2->Text = y;
+  juntar( x, y, z );
+  if ( z <= 999999999 )
+    EditMostrar->Text = z;
+  else
+    EditMostrar->Text = "NO SE PUDO JUNTAR";
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Potenciaxn1Click(TObject *Sender) {
+  Word x, n;
+  x = StrToInt( InputBox( "* POTENCIA X ^ N", "* INGRESE UN NÚMERO: ", "0" ) );
+  n = StrToInt( InputBox( "* POTENCIA X ^ N", "* INGRESE POTENCIA: ", "0" ) );
+  EditMostrar->Text = FloatToStr( Potencia( x, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Burbuja1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* ORDENAR UN VECTOR POR BURBUJA", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* ORDENAR UN VECTOR POR BURBUJA", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  OrdenarBurbu( n, v );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::SumaDgitosPares1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS DE UN VECTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  EditMostrar->Text = IntToStr( SumaV( v, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::SumaDgitos1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS PARES DE UN VECTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS PARES DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  EditMostrar->Text = IntToStr( sumaPares( v, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::SumaDgitosImpares1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS IMPARES DE UN VECTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* SUMA DE LOS DÍGITOS IMPARES DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  EditMostrar->Text = IntToStr( SumaImpares( v, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::PromedioDgitos1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* PROMEDIO DE LOS DÍGITOS DE UN VECTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* PROMEDIO DE LOS DÍGITOS DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  EditMostrar->Text = FloatToStr( PromedioV( v, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::MayorDgito1Click(TObject *Sender) {
+int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* MAYOR DÍGITO DE UN VECTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* MAYOR DÍGITO DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  EditMostrar->Text = IntToStr( Mayor( v, n ) );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Clear1Click(TObject *Sender) {
+  Edit1->Clear( );
+  Edit2->Clear( );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::OrdenarBurbuja1Click(TObject *Sender) {
+  Cardinal a;
+  a = StrToInt( InputBox( "* ORDENAR DÍGITOS DE UN NÚMERO POR BURBUJA", "* INGRESE UN NÚMERO: ", "0" ) );
+  OrdenarX( a );
+  ShowMessage( a );
+}
+//------------------------------------------------------------------------------
+/*void __fastcall TForm1::OrdenarInsertar1Click(TObject *Sender) {
+  Cardinal a;
+  a = StrToInt(InputBox("* ORDENAR LOS DÍGITOS DE UN NÚMERO POR INSERCIÓN","* INGRESE UN NÚMERO: "," "));
+  Ordenar( a );
+  ShowMessage( a );  //ALGO ESTA MALLLLLLLLLLLLLLL
+}  */
+//------------------------------------------------------------------------------
+void __fastcall TForm1::Exit1Click(TObject *Sender) {
+  Application->Terminate( );
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BtnSalirClick(TObject *Sender) {
+  Application->Terminate( );
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::TimerAutorTimer(TObject *Sender) {
+  LbAutor->Visible =!LbAutor->Visible;
+  ImgCamba->Visible = !ImgCamba->Visible;
+  ImgkoRn->Visible = !ImgkoRn->Visible;
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::TimerResultadoTimer(TObject *Sender) {
+  LblResultado->Visible = !LblResultado->Visible;
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::TimerTituloTimer(TObject *Sender) {
+  String x, s = "";
+  s = Caption;
+  char ch = s[ 1 ];
+  s.Delete( 1, 1 );
+  s.Insert( ch, s.Length( ) );
+  Caption = s;
+  x += 11;
+/// ESTE CÓDIGO ME PERMITIRÁ MOVER EL TÍTULO DE LA VENTANA FORM1 ///
+/*String cad, aux;               //var cad,aux:string;
+  cad = Form1->Caption;         //cad:=FrmExplorador.Caption;
+  aux = cad[cad.Length()];     //aux:=cad[length(cad)];
+  delete(cad, cad.Length(),1);//Delete(cad,length(cad),1);
+  cad = aux + cad;           //cad:=aux+cad;
+  Form1->Caption = cad;*/   //FrmExplorador.Caption:=cad;
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::InvertirElementos1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* INVERTIR ELEMENTOS DE UN VECTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* INVERTIR ELEMENTOS DE UN VECTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  Invertir( v, n );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }   //v[6]={1,3,8,9,10,7};
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::BusquedaBinaria1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* BUSQUEDA BINARIA", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* BUSQUEDA BINARIA", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  BusBin( v, n, 10 );
+  for ( i = 0; i < n; i++ ) {
+    if ( BusBin( v, n, 10 ) )             // OJO MUESTRA LAS VECES DE DIGITOS DEL VECTOR //
+      ShowMessage( "SE ENCUENTRA EL VALOR =)" );
+    else
+      ShowMessage( "NO SE ENCUENTRA EL VALOR =(" );
+  }
+}
+//------------------------------------------------------------------------------
+void __fastcall TForm1::BusBinariaClick(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* BUSQUEDA BINARIA", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* BUSQUEDA BINARIA", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  BusBin( v, n, 10 );
+  for ( i = 0; i < n; i++ ) {
+    if ( BusBin( v, n, 10 ) )             // OJO MUESTRA LAS VECES DE DIGITOS DEL VECTOR //
+      ShowMessage( "SE ENCUENTRA EL VALOR =)" );
+    else
+      ShowMessage( "NO SE ENCUENTRA EL VALOR =(" );
+  }
+}
+//-----------------------------------------------------------------------------
+void __fastcall TForm1::QuickSort1Click(TObject *Sender) {
+  int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "* ORDENAR UN VECTOR POR QUICKSORT", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "* ORDENAR UN VECTOR POR QUICKSORT", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  QuickSort(v,n);
+  //OrdenarBurbu( n, v );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CargaRandomizeClick(TObject *Sender) {
+  Word i, n ;
+  n = StrToInt( InputBox( "* CARGA RANDOMIZE", "* INGRESE DIMENSIÓN: ", "0" ) );
+  Vextor->ColCount = n;
+  Randomize( );
+  for ( i = 0; i < n; i++ ) {
+    Vextor->Cells[ i ][ 0 ] = random( 20 );
+  }
+}
+//------------------------------------------------------------------------------
+
+///**************************************************************************///
+///******************* LLAMADOS A LOS MÉTODOS RECURSIVOS ********************///
+///**************************************************************************///
+
+void __fastcall TForm1::BTNRECURSIVOClick(TObject *Sender) {
+
+
+//****************************************************************************//
+//********* LLAMADOS A TODOS LOS MÉTODOS DEL PRÁCTICO # 2 DE VERANO **********//
+//****************************************************************************//
+
+//------------------------------------------------------------------------------
+// 1)
+  /*int v[ 8 ] = { 8, 2, 3, 1, 3, 5, 6 }, n = 8;
+  if( SumaMitades( v, n ) )
+    ShowMessage( " SON IGUALES " );
+  else
+    ShowMessage( "No son Iguales" );*/  //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n;
+  String x;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  if( SumaMitades( v, n ) )
+    ShowMessage( " SON IGUALES " );
+  else
+    ShowMessage( "No son Iguales" );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 2)
+  /*int x = StrToInt(InputBox("","",""));
+  if ( existe(v,n,x))
+    ShowMessage("SI");
+  else
+    ShowMessage("NO");*/  //
+
+  /*int v[ 3 ] = { 2, 3, 4 };
+  int n = 3;
+  int v1[ 6 ] = { 1, 2, 3, 4, 5, 6 };
+  int m = 6;
+  if ( contenido( v, v1, n, m ) )
+    ShowMessage( "EL VECTOR A ESTÁ EN EL VECTOR B" );
+  else
+    ShowMessage( "EL VECTOR A NO ESTÁ EN EL VECTOR B" );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 3) MUESTRA EL PRODUCTO DE DOS NÚMEROS POR SUMAS
+  /*int a, b;
+  a = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE UN NÚMERO: ", "0" ) );
+  b = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE OTRO NÚMERO: ", "0" ) );
+  int prod = producto( a, b );
+  ShowMessage( prod );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 4)
+  /*float p, x, n;
+  x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE POTENCIA: ", "0" ) );
+  p = potencia( x, n );
+  ShowMessage( p );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 5) MOSTRAR ELEMENTOS DEL VECTOR DE LAS CASILLAS PARES
+  /*int v[ 5 ] = { 0, 1, 2, 3, 4 };
+  int n = 5;
+  String s;
+  casillaPar( v, 5, s );
+  ShowMessage( s );*/  // OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n;
+  String s;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  casillaPar( v, n, s );
+  EditMostrar->Text = EditMostrar->Text + "," +  s;*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 6) CANTIDAD QUE SE REPITE
+  /*int v[ 5 ] = { 2, 3, 4, 5, 5 };
+  int n = 5;
+  int x = 5, c;
+  c = cantRepite( v, n, x );
+  ShowMessage( c );*/  //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n, x;
+  int a, c;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  x = StrToInt( InputBox( "VEXXXTOR", "* DIGITE UN NÚMERO: ", "0" ) );
+  c = cantRepite( v, n, x );
+  EditMostrar->Text = EditMostrar->Text + IntToStr( c );*/  // OK OK OK OK OK OK
+
+  /*int x = StrToInt(InputBox( "** XXX VERANO XXX **","* DIGITE UN NÚMERO: ","0" ) );
+  int c = contar( Vextor, Vextor->ColCount, x );
+  ShowMessage( x );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 7)
+/*int v1[ 3 ] = { 1, 2, 3 };
+  int n = 3;
+  int v2[ 3 ] = { 4, 5, 6 };
+  int m = 3;
+  int prod = proEscalar( v1, v2, n );
+  ShowMessage( prod );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 8)
+    /*String s = EditMostrar->Text;
+    s = InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "hola" );
+    if ( esPalindrome( s ) )
+      ShowMessage("TRUE");
+    else
+      ShowMessage("FALSE");*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 10)
+  /*int M, N;
+  M = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE UN NÚMERO: ", "0" ) );
+  N = StrToInt(InputBox("** XXX VERANO XXX **", "* DIGITE OTRO NÚMERO: ", "0" ) );
+  int res = ackerman(M,N);
+  ShowMessage( res );*/ //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 11)
+
+//ShowMessage(sumMayUlt(Vextor,Vextor->ColCount));//  // OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n, sum;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  sum = sumMayUlt( v, n);
+  EditMostrar->Text = EditMostrar->Text +IntToStr( sum );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 12)
+  /*int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "** VERANO **", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "** VERANO **", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  OrdenBurbuVer( n, v );
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text + "-" + IntToStr( v[ i ] );
+  }*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+// 14)
+/*int v[] = { 8, 4, 2, 5, 6, 1, 3, 9 };
+  Word n = 8;
+  int t = posMayor( v, n );
+  ShowMessage( t );
+  selection( v, t );
+  for( int i = 0; i < n; i++ ) {
+    ShowMessage( v[ i ] );  // OK OK OK OK OK OK
+  }*/
+//------------------------------------------------------------------------------
+// 15)
+  /*int a,b,v[ 7 ] = { 1, 3, 5, 8, 9, 10, 6 };
+  int n = 7;
+  MergeSort( v, a, b );
+  ShowMessage( "[" + VecToStr( v, n ) + "]" );*/ //malllllllllllllllllllllllllllll
+
+
+
+
+///**************************************************************************///
+///*******************************   CADENAS   ******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+    /*String s = "Homero raro";
+    ShowMessage(palExt(s));*/  //OK
+
+    /*String s=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    palExt( s );  //MUESTRA LA PALABRA MAS LARGA DE UNA CADENA  ojoooooooooooooo
+    EditMostrar->Text = EditMostrar->Text+(s);*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+   /* int v[5]={9,2,3,4,5};
+    int max,min;    mallllllllllllllllllllllllllll
+    MaxMin(v,max,min,5);
+    ShowMessage(IntToStr(max)+"/"+IntToStr(min));  */
+//------------------------------------------------------------------------------
+    /*String s = "adf dba bfei";
+    ElimVoc(s);
+    ShowMessage(s);*/  //OK
+
+    /*String s=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    ElimVoc(s);  //ELIMINA LAS VOCALES DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text+(s);*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s = "hola a todos";
+    String s1,s2;
+    separaVocCon(s,s1,s2);
+    ShowMessage(s1+"-"+s2);*/  //OK
+
+    /*String s,s1,s2=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    separaVocCon(s,s1,s2);  //SAPARA LAS VOCALES DE LAS CONSONANTES DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text+(s1+"-"+s2);*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s = "hola a todos";
+    invertirCad(s);
+    ShowMessage(s);*/  //OK
+
+    /*String s=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    invertirCad( s );  //INVERTIR UNA CADENA
+    EditMostrar->Text = EditMostrar->Text+(s);*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s="hola a todos";
+    ShowMessage(contVocales(s));*/  //OK
+
+    /*String s="hola a todos";
+    int a=contVocales(s);
+    ShowMessage(a);  */
+
+    /*String s = EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    int x = contVocales( s );  //CONTAR LA VOCALES DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text + ( x );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s = "ddsdsffgsdf";
+    ElimCar(s,'d');
+    ShowMessage(s);*/  //OK
+
+    /*String s=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    ElimCar(s,'a');  //ELIMINAR UN CARACTER DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text+(s);*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s  = "ddsf sfvdfg dfbh";
+    ElimEsp(s);
+    ShowMessage(s);*/ //OK
+
+    /*String s=EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX", "* DIGITE UNA CADENA :", "" ) );
+    ElimEsp( s );  //ELIMINAR LOS ESPACIOS DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text + ( s );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s="hola asd";
+    ShowMessage(contarPal(s));*/  //OK
+
+    /*String s = EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    int x = contarPal( s );  //CONTAR LAS PALABRAS DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text + ( x );*/ //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    //CONTAR VOCALES CONSONANTES.......
+    /*String s="hola amigos ed hoy";
+    int d=contVocCon(s);
+    ShowMessage(d);*/
+
+    /*String s = EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    int x = contVocCon( s );  //CONTAR CUANTAS VOCALES-CONSONANTES HAY DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text + ( x );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+    /*String s="hola a todos";
+    ShowMessage(contarPalabras(s));*/  //OK
+
+    /*String s="hola a todas las amigas de alan";
+    int a=contarPalabras(s);
+    ShowMessage(a);*/  //OK
+
+    /*String s = EditMostrar->Text;
+    s = ( InputBox( "CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    int x = contPalabras( s );  //CONTAR LA CANTIDAD DE PALABRAS QUE TENGAN LA LETRA 'A'
+    EditMostrar->Text = EditMostrar->Text + ( x );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+   /*if(esta("holopoto"))
+     ShowMessage("está");
+   else                 // SE ENCUANTRA LA LETRA 'A' EN LA CADENA
+     ShowMessage("No Está");*/  //OK
+//------------------------------------------------------------------------------
+    /*String s=EditMostrar->Text;
+    s = ( InputBox("CADENAXXX","* DIGITE UNA CADENA :", "" ) );
+    elimVocales( s );  //ELIMINAR LAS VOCALES DE UNA CADENA
+    EditMostrar->Text = EditMostrar->Text+( s );*/  //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+
+///**************************************************************************///
+///*******************************  NATURALES  ******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  Mostrar( n );*/  // 1) MOSTRAR N PRIMEROS NATURALES  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  Mostrar1( n );*/  // 2) MOSTRAR N PRIMEROS NATURALES INVERSOS  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  MostrarPares( n );*/  // 3) MOSTRAR N PRIMEROS NUMEROS PARES  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  EliminarPares( x );  // 4) ELIMINA LOS DIGITOS PARES DE UN NRO  OK OK OK OK OK OK
+  ShowMessage( x );*/
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( SumaDigitosPares( x ) );*/  // 5) MOSTRAR SUMA DE DIGITOS PARES DE UN NRO  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( CantidadPar( x ) );*/  // 6) MOSTRAR CANTIDAD DE DIGITOS PARES DE UN NRO OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  MostrarImpares( n );*/  // 7) MOSTRAR N PRIMEROS NUMEROS IMPARES  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*Cardinal n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( SumaDigitos( n ) );*/  // 11) MOSTRAR SUMA DE LOS DIGITOS  OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*Cardinal x, p, i;
+  x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  Sep_Imp_Par( p, i, x );  // 12) SEPARA LOS DIGITOS PARES E IMPARES DE UN NRO  OK OK OK OK OK OK
+  ShowMessage( " [ " +IntToStr( p ) +'|'+ IntToStr( i ) + " ] " );*/
+//------------------------------------------------------------------------------
+  /*Cardinal x,y,z;  malllllllllllllllllllllllllllllllllllllllllllllllllllllll
+  x = 3745;
+  y  = 1234;
+  SepararParImpar( z, x, y );  // 8) SEPARA LOS DIGITOS PARES E IMPARES DE DOS NRO
+  ShowMessage( " [ " +IntToStr( x ) +'|'+ IntToStr( y ) + " ] " );  */
+//------------------------------------------------------------------------------
+  /*Cardinal x, y, z;
+  x = StrToInt(InputBox("** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  y = StrToInt(InputBox("** NÚMEROS NATURALES **", "* DIGITE OTRO NÚMERO: ", "0" ) );
+  juntar( x, y, z );  // 15) JUNTAR LOS DIGITOS DE 2 NÚMEROS EN UNO SOLO OK OK OK OK OK OK
+  ShowMessage( z );*/
+//------------------------------------------------------------------------------
+  /*Cardinal z;  //malllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+  z = 98713;
+  Ordenar( z );  // 16) ORDENAR DIGITOS DE UN NRO
+  ShowMessage( z );*/
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( MenorDigito( x ) );*/  // 17) MOSTRAR EL MENOR DIGITO DE UN NRO
+  //8451962  MAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+//---------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  x = Fibo( x );  // 20)MUESTRA EL N-ÉSIMO TÉRMINO DE LA SERIE FIBONACCI OK OK OK OK OK OK
+  ShowMessage( x );*/
+//------------------------------------------------------------------------------
+  /*float p, x, n;
+  x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE POTENCIA: ", "0" ) );
+  p = Potencia( x, n );  // 21)ELEVA UN NRO X A LA N  OK OK OK OK OK OK
+  ShowMessage( p );*/
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  if ( EsPar( x ) )  // 22) PROGRAMA QUE DEVUELVE TRUE SI UN NÚMERO ES PAR OK OK OK OK OK OK
+    ShowMessage( "ES PAR" );
+  else
+    ShowMessage( "NO ES PAR" );*/
+//------------------------------------------------------------------------------
+  /*Word x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  MostrarHola( x );*/  // 23) MOSTRAR N VECES HOLA Y UN CHAU OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( Factorial( n ) );*/  // 24) MUESTRA EL FACTORIAL DE UN NÚMERO OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( Nesimo( n ) );*/ // 25) MUESTRA EL N-ÉSIMO TÉRMINO DE UNA SERIE OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( GenerarSerie( n ) );*/  // 26) MUESTRA EL N-ÉSIMO TÉRMINO DE UNA SERIE OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*byte n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( SumaSerie( n ) );*/  // 27) MUESTRA LA SUMA DE UNA SERIE OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*Cardinal x = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( SepararDigito( x ) );*/  // 28) PROGRAMA QUE SEPARA LOS DÍGITOS DE UN NÚMERO OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*int n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( SumaN( n ) );*/  // 29) PROGRAMA QUE SEPARA LA SUMA DE UNA SERIE OK OK OK OK OK OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*int n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( Pro1( n ) );*/  // ) Pro1  OK OK OK OK OK OK
+
+  /*int n = StrToInt( InputBox( "** NÚMEROS NATURALES **", "* DIGITE UN NÚMERO: ", "0" ) );
+  ShowMessage( Pro2( n ) );*/  // ) Pro2  OK OK OK OK OK OK
+
+
+  /*int v[ 50 ], i;
+  int n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }    // ) Pro3 //
+  EditMostrar->Text = IntToStr( Pro3( v, n ) );*/  // OJO: INFINITOOOOOOOOOOOOOOOO
+
+
+
+  /*int v[ 50 ], i;
+  int n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }    // ) Pro4 //
+  EditMostrar->Text = IntToStr( Pro4( v, n ) );*/ // OK OK OK OK OK OK
+
+//------------------------------------------------------------------------------
+
+///**************************************************************************///
+///*******************************  VECTORES  *******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+/*int x,v[7]={2,5,6,8,6,1,10};
+  byte z = 7;
+  x = SumaV( v, z );    // 13)MUESTRA LA SUMA DE LOS ELEMENTOS DE UN VECTOR //
+  ShowMessage( x );*/  //OK
+//------------------------------------------------------------------------------
+  /*int x,v[7]={3,5,6,8,6,1,1};
+  byte z = 7;
+  x = SumaImpares( v, 7 );  // 14)MUESTRA LA SUMA DE LOS ELEMENTOS IMPARES DE UN VECTOR //
+  ShowMessage( x );*/      //OK
+//------------------------------------------------------------------------------
+  /*int x,v[7]={3,7,14,5,2,16,15};
+  Word n = 7;
+  x = sumParImp( v, n );  // X)MUESTRA LA SUMA DE LOS ELEMENTOS PARES CON IMPARES DE UN VECTOR //
+  ShowMessage( x );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+
+  /*int v[7]={3,7,14,5,2,16,15};
+  short n = 7;
+  int v1[8]={1,2,3,4,5,6,7,9};
+  short m = 8;
+  intercambiar( v, v1, n, m );
+  ShowMessage( "[" + VecToStr( v, n) + "]" );
+  ShowMessage( "[" + VecToStr( v1,m) + "]" );*/
+
+
+
+
+  /*int v[5]={1,2,3,4,5};
+  int n = 5;
+  float x;
+  x = promedio( v, n );  // 15)MUESTRA EL PROMEDIO DE LOS ELEMENTOS DE UN VECTOR //
+  ShowMessage( x );*/
+
+  /*int v[ 50 ], i;
+  int n, x;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( " EJERCICIO DE VERANO ", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( " EJERCICIO DE VERANO ", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }    // ) PROMEDIO DE LOS DÍGITOS DE UN VECTOR //
+  x = promedio( v, n );
+  EditMostrar->Text = IntToStr( x );*/  // OK OK OK OK OK OK
+
+
+
+
+  /*int v[4]={3,7,14,5};
+  int n = 4;
+  int v1[4]={1,2,8,4};
+  int m = 4;
+  int vx[ 50 ] = { 50 };
+  int k = 50;
+  concatenar( v, v1, n, m, vx, k );
+  ShowMessage( "[" + VecToStr2( v, v1, n, m ) + "]" );*/ // OK OK OK OK OK OK
+
+
+  /*int v[4]={3,7,14,5};
+  int n = 4;
+  int v1[3]={1,2,8};
+  int m = 4;
+  int vx[ 50 ] = { 50 };
+  int k = 50;
+  prodCartesiano( v, v1, n, m, vx );
+  //concatenar( v, v1, n, m, vx, k );
+  ShowMessage( "[" + VecToStr2( v, v1, n, m ) + "]" );*/
+
+
+  /*int x, v[ 6 ] = { 1, 2, 3, 4, 5, 5 };
+  short n = 6;
+  if ( repetidos( v, n ) )                        // 24)BUSQUEDA BINARIA //
+    ShowMessage( "SI HAY DOS NÚMEROS REPETIDOS =)" );
+  else                                             // OK
+    ShowMessage( "NO HAY DOS NÚMEORS REPETIDOS =(" );*/
+
+
+
+  /*int v[7]={3,7,9,5,2,10,8};
+  int n = 7;
+  int x;
+  x = prodMaxMin( v, n );
+  ShowMessage( x );*/ //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n,x;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }    // ) PRODUCTO DEL VALOR MAXIMO POR EL MINIMO //
+  x = prodMaxMin( v, n );
+  EditMostrar->Text = IntToStr( x );*/ // OK OK OK OK OK OK
+
+
+
+  /*int v[ 3 ] = { 1, 1, 1 };
+  int n = 3;
+  int v1[ 3 ] = { 0, 1, 0 };
+  int m = 3;
+  int x;
+  x = hamming( v, v1, n, m ); // OK OK OK OK OK OK
+  ShowMessage( x );*/
+
+
+
+//------------------------------------------------------------------------------
+  /*int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }    // 32)MUESTRA LA SUMA DE LOS ELEMENTOS PARES DE UN VECTOR //
+  EditMostrar->Text = IntToStr( sumaPares( v, n ) );*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*int v[7]={2,6,8,16,7,1,1};
+  int z = 7;
+  float x;
+  x = PromedioV( v, z );  // 15)MUESTRA EL PROMEDIO DE LOS ELEMENTOS DE UN VECTOR //
+  ShowMessage( x );*/    //OK
+//------------------------------------------------------------------------------
+  /*int v[7]={3,7,4,5,1,13,2};
+  Rotar(v,7);       // 16)ROTAR UNA CASILLA A LA DERECHA ELEMENTOS DEL VECTOR //
+  ShowMessage( "[" + VecToStr( v, 7 ) + "]" );*/ //OK OK OK OK OK OK
+
+  //rotarDer( Vextor, Vextor->ColCount );  // OK OK OK OK OK OK
+
+  // rotarIzq1( Vextor, Vextor->ColCount );  // OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text =  Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  //Rotar( v, n );  // 16)ROTAR UNA CASILLA A LA DERECHA ELEMENTOS DEL VECTOR //
+  rotarIzq( v, n );// xxxxx)ROTAR UNA CASILLA A LA IZQUIERDA ELEMENTOS DEL VECTOR //
+  EditMostrar->Text = ( "[" + VecToStr( v, n ) + "]" );*/   //OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*int v[ 7 ] = { 1, 3, 5, 8, 9, 10, 6 };
+  InsertarX(v,7);                               // 16.1)INSERTAR UN ELEMENTO A SU LUGAR //
+  ShowMessage( "[" + VecToStr( v, 7 ) + "]" );*/ //OK
+//------------------------------------------------------------------------------
+  /*int x,v[10]={2,8,-5,10,15,4,6,9,2,7};
+  short int n = 1;
+  x = Mayor( v, 4 );  // 17)MUESTRA EL MAYOR DE LOS ELEMENTOS DE UN VECTOR //
+  ShowMessage( x );*/
+//------------------------------------------------------------------------------
+  /*int v[ 7 ] = { 5, 7, 1, 4, 6, 3, 2 };
+  InsertionSort(v,7);  // 17.1)ORDENAR LOS ELEMENTOS DEL VECTOR POR BARAJA //
+  ShowMessage( VecToStr( v, 7 ) );*/  //OJO SALE STACK OVERFLOW
+//------------------------------------------------------------------------------
+  /*int x,v[6]={7,3,1,5,3,2};
+  int n = 6;
+  EliminarElemento( v, n, 3 );                    // 18)ELIMINA UN ELEMENTO DEL VECTOR //
+  ShowMessage( "[" + VecToStr( v, n )+ "]" );*/ //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  int n, x;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  x = StrToInt( InputBox( "VEXXXTOR", "* DIGITE NÚMERO A ELIMINAR: ", "0" ) );
+  EliminarElemento( v, n, x );    // eliminar dato //
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text +","+IntToStr( v[ i ] );
+  }*/  // OK OK OK OK OK OK
+
+  /*int x;
+  x = StrToInt( InputBox( "VEXXXTOR", "* DIGITE NÚMERO A ELIMINAR: ", "0" ) );
+  elimDato( Vextor, Vextor->ColCount, x );*/  //MALLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+//------------------------------------------------------------------------------
+  /*int v[7]={7,4,1,8,5,3,6};
+  Burbu( v, 7 );  // 19)LLEVA EL MAYOR DIGITO A LA ÚLTIMA CASILLA DEL VECTOR //
+  ShowMessage( VecToStr( v, 7 ) );*/  //OK OK OK OK OK OK
+
+  //burbujita( Vextor, Vextor->ColCount ); //mallllllllllllllllllllllllllll
+
+//------------------------------------------------------------------------------
+  /*bool v[6]={7,1,5,8,6,4};
+  Ordenar( v, 6 )  // 20)VERIFICA SI LOS ELEMENTOS DEL VECTOR ESTÁ ORDENADO//
+  ShowMessage( VecToStr( v, 6 ) );  */
+//------------------------------------------------------------------------------
+ /*int v[6]={1,3,8,9,10,7};
+  short n = 6;
+  Invertir( v, n );                             // 23)INVERTIR LOS ELEMENTOS DE UN VECTOR //
+  ShowMessage( "[" + VecToStr( v, n ) + "]" );*/ //OK
+//------------------------------------------------------------------------------
+  /*int x, v[ 12 ] = {1, 2, 4, 6, 9, 10, 11, 12, 20, 30, 31, 35 };
+  short n = 12;
+  if ( BusBin( v, n, 10 ) )                        // 24)BUSQUEDA BINARIA //
+    ShowMessage( "SE ENCUENTRA EL VALOR =)" );
+  else                                             // OK
+    ShowMessage( "NO SE ENCUENTRA EL VALOR =(" );*/
+//------------------------------------------------------------------------------
+  /*int v[ 8 ] = {4, 1, 5, 8, 6, 3, 2, 9 };
+  Word n = 8;
+  if ( EstaAntes( v, n, 3, 5 ) )                 // 26)ESTÁ ANTES X DE Y EN UN VECTOR //
+    ShowMessage( "SE ENCUENTRA ANTES =)" );
+  else                                          // OK
+    ShowMessage( "NO SE ENCUENTRA ANTES =(" );*/
+//------------------------------------------------------------------------------
+  /*int x, v[ 12 ] = {1, 2, 4, 6, 9, 10, 11, 12, 20, 30, 31, 35 };
+  Cardinal n = 12;
+  if ( EstaOrdenado( v, n ) )                  // 9.1)ESTA ORDENADO EL VECTOR DE MENOR A MAYOR //
+    ShowMessage( "SE ENCUENTRA ORDENADO =)" );
+  else                                         // OK
+    ShowMessage( "NO SE ENCUENTRA ORDENADO =(" ); */
+//------------------------------------------------------------------------------
+  /*int x, v[ 7 ] = { 7,5,4,15,2,2,0, };
+  Cardinal n = 7;
+  if ( EstaOrdenado1( v, n ) )                  // 9.2)ESTA ORDENADO EL VECTOR DE MAYOR A MENOR //
+    ShowMessage( "SE ENCUENTRA ORDENADO =)" );
+  else                                         // OK
+    ShowMessage( "NO SE ENCUENTRA ORDENADO =(" );*/
+//------------------------------------------------------------------------------
+  /*int v[ 5 ] = { 9, 8, 10, 2, 3 };
+  Word n = 5;
+  P(v,n);
+  ShowMessage( "[" + VecToStr( v, n ) + "]" );*/ //OK
+//------------------------------------------------------------------------------
+  /*int v[ 8 ] = { 8 };
+  Word n = 8;
+  CargarFibo(v,n);
+  ShowMessage( "[" + VecToStr( v, n ) + "]" );*/ //OK
+//------------------------------------------------------------------------------
+  /*int v[7]={3,7,1,4,2,9,5};
+  int x=7;
+  ShowMessage(sumaPosPares(v,x));*/  // maaaaaaaaaaaaaalllllllllllllllllllllllll
+//------------------------------------------------------------------------------
+  /*int v[ 7 ] = { 7,5,4,15,2,2,0, };
+  int n = 3;
+  int m = 1;
+  if ( EstaOrdenadovector( v, n, m ) )   // 9.2)ESTA ORDENADO EL VECTOR DE MAYOR A MENOR //
+    ShowMessage( "ESTÁ ORDENADO  "  + IntToStr( m ) );
+  else                                         // OK  OJOOOOOOOOOOO
+    ShowMessage( "NO ESTÁ ORDENADO  " + IntToStr( m ) );*/
+//------------------------------------------------------------------------------
+  /*int v[6]={1,3,8,9,10,7};
+  int n = 6;                        //ojooooooooooooooooooooooooooooooooooooooooo
+  int Max,Min;
+  MaxMin(v,n,Max,Min);                     // 23)MAX & MIN ELEMENTO DE UN VECTOR //
+  ShowMessage( "[" + VecToStr( v, n ) + "]" );*/ //OK
+//------------------------------------------------------------------------------
+   /*int a,b;
+   int n = V1.GetDimension();
+   V1.MaxMin(n,a,b);                //ojoooo este es el ejemplo de llamada
+   Edit2->Text = StrToInt(a);
+   Edit3->Text = StrToInt(b);*/
+//------------------------------------------------------------------------------
+  /*int v[ 10 ] = { 0, 9, 3, 6, 7, 4, 5, 1, 13, 2 };
+  sepParImp( v, 10 );    // )SEPARAR LOS DIGITOS PARES E IMPARES DEL VECTOR //
+  ShowMessage( "[" + VecToStr( v, 10 ) + "]" );*/  //OK OK OK OK OK OK
+
+  /*int v[ 50 ], i;
+  Word n;
+  Edit1->Clear( );
+  EditMostrar->Clear( );
+  Edit2->Clear( );
+  n = StrToInt( InputBox( "VEXXXTOR", "* DIGITE DIMENSIÓN: ", "0" ) );
+  for ( i = 0; i < n; i++ ) {
+    v[ i ] = StrToInt( InputBox( "VEXXXTOR", "* VALOR: ", "0" ) );
+    Edit1->Text = Edit1->Text + "-" + IntToStr( v[ i ] );
+  }
+  sepParImp( v, n );    // )SEPARAR LOS DIGITOS PARES E IMPARES DEL VECTOR //
+  for ( i = 0; i < n; i++ ) {
+    EditMostrar->Text = EditMostrar->Text +","+IntToStr( v[ i ] );
+  }*/  // OK OK OK OK OK OK
+//------------------------------------------------------------------------------
+  /*int x, v[ 11 ] = { 3,7,1,4,2,9,5,  9,8,7,6};
+  int z = 7;
+  x = sumaPosPares( v, z ); // )MUESTRA LA SUMA DE LAS POSICIONES PARES DE ELEMENTOS DE UN VECTOR //
+  ShowMessage( x );*/   //OK OK OK OK OK OK
+
+}
+
+//------------------------------------------------------------------------------
+
+///**************************************************************************///
+///*******************************  MATRICES  *******************************///
+///**************************************************************************///
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::BTNCARGAMATRICESClick( TObject *Sender ) {
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  magicVer( Matrix, m, m, 0, m / 2, 1 );*/ // OK OK OK OK OK OK DE VERANO # 22
+
+
+  //matrixFila( Matrix, m, n );  // OK OK OK OK OK OK DE VERANO # 18
+  //triSupIzq(Matrix);  // OK OK OK OK OK OK
+  //llenar8_1(Matrix);  // OK OK OK OK OK OK
+  //llenar8(Matrix,0,0,1);  // OK OK OK OK OK OK
+  //triSupDer(Matrix);
+  //llenarMatrix4(Matrix, 0, 0, 1 );
+   //matrixColumna( Matrix, m, n );  // OK OK OK OK OK OK DE VERANO # 19  ojooooooooooooooooooo
+  //magico2(Matrix,m,0,0,1);
+  //llenarMatrix5(Matrix, m, n, 1 );
+  //ordenCol(Matrix);
+}
+//------------------------------------------------------------------------------
+
+void __fastcall TForm1::BtnMagicoClick( TObject *Sender ) {
+  //short m, n;
+  //m = StrToInt( InputBox( "MATRIXXX", "* DIGITE DIMENSIÓN: ", "0" ) );
+  //Matrix->ColCount = m;
+  //Matrix->RowCount = m;
+
+}
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::magico1Click(TObject *Sender) {
+  short m, n;
+  m = StrToInt( InputBox( "MATRIXXX", "* DIGITE DIMENSIÓN: ", "0" ) );
+  Matrix->ColCount = m;
+  Matrix->RowCount = m;
+  Magico( Matrix, m, m, 0, m / 2, 1 ); //OK OK OK OK OK OK
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::llenarAlRevesClick(TObject *Sender) {
+  int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+
+  int f = m-1;
+  int c = n-1;
+
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  llenarReves( Matrix, m, n, f, c );  //OK OK OK OK OK OK
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::llenar1Click(TObject *Sender) {
+  int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  LlenarMatriz1( Matrix, m, n );  //OK OK OK OK OK OK
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::magicox2Click(TObject *Sender) {
+  int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE DIMENSIÓN: ", "0" ) );
+
+  int f = m - 1;
+  int c = m / 2;
+
+  Matrix->ColCount = m;
+  Matrix->RowCount = m;
+  magico2( Matrix, m, f, c, m * m );  //OK OK OK OK OK OK
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::matrizAuxClick(TObject *Sender) {
+  int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE DIMENSIÓN: ", "0" ) );
+  int f = 0;
+  int c = m - 1;
+  int dato = limiteM( m );
+  matriztri( Matrix, m, f, c, dato );  //OK OK OK OK OK OK
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::matrizElementalClick(TObject *Sender) {
+  int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE DIMENSIÓN: ", "0" ) );
+  int f = m - 1;
+  int c = m - 1;
+  espiral( Matrix , m , f , c , m*m );  //OK OK OK OK OK OK
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::estaOrdenMatrizClick(TObject *Sender) {
+
+  /*int m = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE FILAS: ", "0" ) );
+  int n = StrToInt( InputBox( "MATRIXXX", "* DIGITE NRO DE COLUMNAS: ", "0" ) );
+  Matrix->ColCount = n;
+  Matrix->RowCount = m;
+  LlenarMatriz1( Matrix, m, n );*/
+
+
+   /*int f = m;
+   int c = n;
+
+   if ( estaOrdenada( Matrix , m , n , f ,c ) )
+     ShowMessage ("true");
+   else
+     ShowMessage ("false");*/
+}
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::BTNCARGAVECTORESClick(TObject *Sender) {
+  Word i, n ;
+  n = StrToInt( InputBox( "VEXXXTOR", "* INGRESE DIMENSIÓN: ", "0" ) );
+  Vextor->ColCount = n;
+  Randomize( );
+  for ( i = 0; i < n; i++ ) {
+    Vextor->Cells[ i ][ 0 ] = random( 20 );
+  }
+}
+
+void __fastcall TForm1::Par_ImpClick(TObject *Sender)
+{
+        Cardinal p = 0, i = 0;
+        Cardinal n = StrToInt(InputBox("","cvjyuht",""));
+        Sep_Imp_Par(p,i,n);
+        ShowMessage(p);
+
+        ShowMessage(i);
+}
+//   -------------------------------------------------------------------------
+
+
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+        Cardinal n =StrToInt(InputBox("hola","como","estas"));
+        elimImpares(n);
+        ShowMessage(n);
+}
+
+
+
+
+
